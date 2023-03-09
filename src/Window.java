@@ -11,11 +11,11 @@ public class Window extends UserView {
 
     public Window(World w, int width, int height) {
         super(w, width, height);
-        background = new ImageIcon("res/sprites/.png").getImage();
+        background = new ImageIcon("res/sprites/enviroment/background.png").getImage();
     }
 
     @Override
     protected void paintBackground(Graphics2D g) {
-        g.drawImage(background, 0, 0 , this);
+        g.drawImage(background, 0, -280, this);
     }
 }

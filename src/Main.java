@@ -1,13 +1,14 @@
 import javax.swing.JFrame;
+
+// import of debugger tool; uncomment to use
 // import city.cs.engine.DebugViewer;
 
-import city.cs.engine.UserView;
 
 public class Main {
 
     public static void everchase() {
         Game world = new Game();
-        UserView view = new UserView(world, 900, 500);
+        Window view = new Window(world, 900, 500);
 
         final JFrame frame = new JFrame("Everchase");
         frame.add(view);
@@ -17,6 +18,7 @@ public class Main {
         frame.setVisible(true);
         frame.pack();
 
+        // optional: line below allows for a second window that assits with debugging; uncomment to use
         // new DebugViewer(world, 900, 500);
 
         world.start();
@@ -24,7 +26,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        System.out.println("booting up game...\nHave fun adventurer!");
+        System.out.println("booting up game...\nHave fun, adventurer!");
         everchase();
     }
 }
