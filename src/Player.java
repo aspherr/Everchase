@@ -9,6 +9,7 @@ import city.cs.engine.World;
 public class Player extends Walker {
 
     private static final Shape playerShape = new BoxShape(1f, 2.00f);
+    private boolean inAir;
     private String currentPlayerState = "";
     private String nextPlayerState = "";
 
@@ -18,13 +19,18 @@ public class Player extends Walker {
 
     public void animationManager(Vec2 velocity) {
 
-        if (velocity.x > 0.00 && velocity.y < 0.1) {
+        if (velocity.y == 0.00) {
+            inAir = false;
+        }
+
+        if (velocity.x > 0.00 && velocity.y < 0.1 && inAir == false) {
             nextPlayerState = "run";
 
         } else if (velocity.y > 0.1) {
             nextPlayerState = "jump";
+            inAir = true;
         
-        } else if (velocity.x > -0.1 && velocity.x < 0.1 && velocity.y < 0.1) {
+        } else if (velocity.x > -0.1 && velocity.x < 0.1 && velocity.y < 0.1 && inAir == false) {
             nextPlayerState = "idle";
         }
 

@@ -32,7 +32,8 @@ public class Controller implements KeyListener {
         int keyCode = e.getKeyCode();
 
         if (keyCode == KeyEvent.VK_D) {
-            yumiko.stopWalking();  
+            yumiko.stopWalking();
+            yumiko.startWalking(0);  
         }
     }
     

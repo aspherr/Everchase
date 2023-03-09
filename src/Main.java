@@ -13,6 +13,8 @@ public class Main {
         Controller playerController = new Controller(world.getPlayer());
         view.addKeyListener(playerController);
 
+        world.addStepListener(new Tracker(world.getPlayer()));
+
         final JFrame frame = new JFrame("Everchase");
         frame.add(view);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
