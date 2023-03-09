@@ -10,6 +10,9 @@ public class Main {
         Game world = new Game();
         Window view = new Window(world, 900, 500);
 
+        Controller playerController = new Controller(world.getPlayer());
+        view.addKeyListener(playerController);
+
         final JFrame frame = new JFrame("Everchase");
         frame.add(view);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -22,7 +25,7 @@ public class Main {
         // new DebugViewer(world, 900, 500);
 
         world.start();
-
+        view.requestFocus();
     }
 
     public static void main(String[] args) throws Exception {

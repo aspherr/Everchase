@@ -19,5 +19,11 @@ public class Game extends World {
         yumiko = new Player(this);
         yumiko.setPosition(new Vec2(0f, -10.00f));
         yumiko.animationManager(yumiko.getLinearVelocity());
+        
     }
+
+    public Player getPlayer() {
+        return yumiko;
+    }
+
 }

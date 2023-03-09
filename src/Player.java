@@ -18,8 +18,11 @@ public class Player extends Walker {
 
     public void animationManager(Vec2 velocity) {
 
-        if (velocity.x > 0.1 && velocity.y < 0.1) {
+        if (velocity.x > 0.00 && velocity.y < 0.1) {
             nextPlayerState = "run";
+
+        } else if (velocity.y > 0.1) {
+            nextPlayerState = "jump";
         
         } else if (velocity.x > -0.1 && velocity.x < 0.1 && velocity.y < 0.1) {
             nextPlayerState = "idle";
