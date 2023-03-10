@@ -11,13 +11,14 @@ public class Player extends Walker {
     private static final Shape playerShape = new BoxShape(1.00f, 2.00f);
     private float imgSize = 9.00f;
     private boolean inAir;
-    private String direction;
+    private String direction = "right";
     private String attackType;
     private String currentPlayerState = "";
     private String nextPlayerState = "";
 
     public Player(World world) {
         super(world, playerShape);
+        nextPlayerState = "idle-right";
     }
 
     public void attack() {
@@ -51,20 +52,26 @@ public class Player extends Walker {
         
         } else if ((velocity.x > -0.10 && velocity.x < 0.10) && velocity.y >= -0.10 && inAir == false) {
             imgSize = 9.00f;
-            nextPlayerState = "idle";
+
+            if (currentPlayerState == "jump-left" || currentPlayerState == "run-left") {
+                nextPlayerState = "idle-left";
+            
+            } else if (currentPlayerState == "jump-right" || currentPlayerState == "run-right") {
+                nextPlayerState = "idle-right";
+            }
+
+            System.out.println(imgSize);
+
         } 
         
         if (attackType == "light" && inAir == false) {
-            imgSize = 14.00f;
-            nextPlayerState = "light-attack";
-        
+            // imgSize = 14.00f;
+
         } else if (attackType == "heavy" && inAir == false) {
-            imgSize = 14.00f;
-            nextPlayerState = "heavy-attack";
+            // imgSize = 14.00f;
         
         } else if (attackType == "combo" && inAir == false) {
-            imgSize = 14.00f;
-            nextPlayerState = "combo-attack";
+            // imgSize = 14.00f;
         }
     }
 
@@ -74,13 +81,13 @@ public class Player extends Walker {
             inAir = false;
         }
 
-        if (velocity.x <= -0.10) {
+        if ((velocity.x <= -0.10f) || (currentPlayerState == "jump-left" && velocity.x < 0.10f)) {
             direction = "left";
-        
+            
         } else {
             direction = "right";
         }
-        
+
         playerMotion(velocity, position);
 
         if (nextPlayerState != "" && !(nextPlayerState.equals(currentPlayerState))) {
@@ -96,5 +103,13 @@ public class Player extends Walker {
 
     public void setAttackType(String type) {
         attackType = type;
+    }
+
+    public String getPlayerState() {
+        return currentPlayerState;
+    }
+
+    public void setPlayerState(String state) {
+        nextPlayerState = state;
     }
 }

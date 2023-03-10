@@ -27,6 +27,10 @@ public class Controller implements KeyListener {
         
         } else if (keyCode == KeyEvent.VK_W) {
             yumiko.jump(SPEED*2.00f);
+
+            if (keyCode == KeyEvent.VK_A) {
+                yumiko.setPlayerState("jump-left");
+            }
         
         } else if (keyCode == KeyEvent.VK_F) {
             yumiko.setAttackType("light");
@@ -49,7 +53,7 @@ public class Controller implements KeyListener {
 
         if (keyCode == KeyEvent.VK_D) {
             yumiko.stopWalking();
-            yumiko.startWalking(0);  
+            yumiko.startWalking(0); 
         
         } else if (keyCode == KeyEvent.VK_A) {
             yumiko.stopWalking();
