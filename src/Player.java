@@ -41,11 +41,11 @@ public class Player extends Walker {
         } else if (velocity.y > 0.10 || (inAir == true && velocity.y < 0.10)) {
             imgSize = 9.00f;
 
-            if (direction == "right") {
-                nextPlayerState = "jump-right";
-            
-            } else if (direction == "left") {
+            if (direction == "left" || currentPlayerState == "idle-left") {
                 nextPlayerState = "jump-left";
+            
+            } else if (direction == "right") {
+                nextPlayerState = "jump-right";
             }
 
             inAir = true;
@@ -59,8 +59,6 @@ public class Player extends Walker {
             } else if (currentPlayerState == "jump-right" || currentPlayerState == "run-right") {
                 nextPlayerState = "idle-right";
             }
-
-            System.out.println(imgSize);
 
         } 
         
