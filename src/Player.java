@@ -15,6 +15,8 @@ public class Player extends Walker {
     private String currentPlayerState = "";
     private String nextPlayerState = "";
 
+    private int health = 3;
+
     public Player(World world) {
         super(world, playerShape);
         nextPlayerState = "idle-right";
@@ -96,5 +98,13 @@ public class Player extends Walker {
 
     public void setNextPlayerState(String state) {
         nextPlayerState = state;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int healthValue) {
+        health -= healthValue;
     }
 }
