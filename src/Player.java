@@ -12,7 +12,6 @@ public class Player extends Walker {
     private float imgSize = 9.00f;
     private boolean inAir;
     private String direction = "right";
-    private String attackType;
     private String currentPlayerState = "";
     private String nextPlayerState = "";
 
@@ -25,11 +24,9 @@ public class Player extends Walker {
 
     }
     
-
     public void playerMotion(Vec2 velocity, Vec2 position) {
 
         if (((velocity.x > 0.00 || velocity.x < -0.10) && velocity.y < 0.1) && inAir == false) {
-            imgSize = 9.00f;
 
             if (direction == "right") {
                 nextPlayerState = "run-right";
@@ -39,20 +36,19 @@ public class Player extends Walker {
             }
             
         } else if (velocity.y > 0.10 || (inAir == true && velocity.y < 0.10)) {
-            imgSize = 9.00f;
 
             if (direction == "left" || currentPlayerState == "idle-left") {
                 nextPlayerState = "jump-left";
             
             } else if (direction == "right") {
                 nextPlayerState = "jump-right";
+
             }
 
             inAir = true;
         
         } else if ((velocity.x > -0.10 && velocity.x < 0.10) && velocity.y >= -0.10 && inAir == false) {
-            imgSize = 9.00f;
-
+  
             if (currentPlayerState == "jump-left" || currentPlayerState == "run-left") {
                 nextPlayerState = "idle-left";
             
@@ -61,16 +57,6 @@ public class Player extends Walker {
             }
 
         } 
-        
-        if (attackType == "light" && inAir == false) {
-            // imgSize = 14.00f;
-
-        } else if (attackType == "heavy" && inAir == false) {
-            // imgSize = 14.00f;
-        
-        } else if (attackType == "combo" && inAir == false) {
-            // imgSize = 14.00f;
-        }
     }
 
     public void animationManager(Vec2 velocity, Vec2 position) {
@@ -90,24 +76,25 @@ public class Player extends Walker {
 
         if (nextPlayerState != "" && !(nextPlayerState.equals(currentPlayerState))) {
             this.removeAllImages();
+
+            if (nextPlayerState == "light-attack-right" || nextPlayerState == "light-attack-left" ||
+                nextPlayerState == "heavy-attack-right" || nextPlayerState == "heavy-attack-left") {
+                imgSize = 14.00f;
+
+            } else {
+                imgSize = 9.00f;
+            }
+
             this.addImage(new BodyImage("res/sprites/player/yumiko-" + nextPlayerState + ".gif", imgSize));
             currentPlayerState = nextPlayerState;
         }
     }
 
-    public String getAttackType() {
-        return attackType;
-    }
-
-    public void setAttackType(String type) {
-        attackType = type;
-    }
-
-    public String getPlayerState() {
+    public String getCurrentPlayerState() {
         return currentPlayerState;
     }
 
-    public void setPlayerState(String state) {
+    public void setNextPlayerState(String state) {
         nextPlayerState = state;
     }
 }

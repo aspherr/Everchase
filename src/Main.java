@@ -23,7 +23,7 @@ public class Main {
         frame.setVisible(true);
         frame.pack();
 
-        // optional: line below allows for a second window that assits with debugging; uncomment to use
+        // optional: line below creates a debugger window; uncomment to use
         // new DebugViewer(world, 900, 500);
 
         world.start();

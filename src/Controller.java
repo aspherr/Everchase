@@ -29,22 +29,27 @@ public class Controller implements KeyListener {
             yumiko.jump(SPEED*2.00f);
 
             if (keyCode == KeyEvent.VK_A) {
-                yumiko.setPlayerState("jump-left");
-            }
+                yumiko.setNextPlayerState("jump-left");
+            } 
         
         } else if (keyCode == KeyEvent.VK_F) {
-            yumiko.setAttackType("light");
-            yumiko.attack();
-        
-        } else if (keyCode == KeyEvent.VK_E) {
-            yumiko.setAttackType("heavy");
-            yumiko.attack();
-        
-        } else if (keyCode == KeyEvent.VK_R) {
-            yumiko.setAttackType("combo");
-            yumiko.attack();
+
+            if (yumiko.getCurrentPlayerState() == "idle-left") {
+                yumiko.setNextPlayerState("light-attack-left");
             
-        }
+            } else if (yumiko.getCurrentPlayerState() == "idle-right") {
+                yumiko.setNextPlayerState("light-attack-right");
+            }
+
+        } else if (keyCode == KeyEvent.VK_E) {
+
+            if (yumiko.getCurrentPlayerState() == "idle-left") {
+                yumiko.setNextPlayerState("heavy-attack-left");
+            
+            } else if (yumiko.getCurrentPlayerState() == "idle-right") {
+                yumiko.setNextPlayerState("heavy-attack-right");
+            }
+        } 
     }
 
     @Override
@@ -57,11 +62,7 @@ public class Controller implements KeyListener {
         
         } else if (keyCode == KeyEvent.VK_A) {
             yumiko.stopWalking();
-            yumiko.startWalking(0);
-
-        } else if (keyCode == KeyEvent.VK_F) {
-            yumiko.stopWalking();
-            yumiko.startWalking(0);
-        }  
+            yumiko.startWalking(0);  
+        } 
     }
 }
