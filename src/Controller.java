@@ -2,7 +2,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Controller implements KeyListener {
-    private static final float SPEED = 5.00f;
+    private static final float SPEED = 6.00f;
     
     private Player yumiko;
 
@@ -20,10 +20,26 @@ public class Controller implements KeyListener {
         int keyCode = e.getKeyCode();
 
         if (keyCode == KeyEvent.VK_D) {
-            yumiko.startWalking(SPEED);   
+            yumiko.startWalking(SPEED);
+           
+        } else if (keyCode == KeyEvent.VK_A) {
+            yumiko.startWalking(-SPEED);
         
         } else if (keyCode == KeyEvent.VK_W) {
-            yumiko.jump(SPEED*2.25f);
+            yumiko.jump(SPEED*2.00f);
+        
+        } else if (keyCode == KeyEvent.VK_F) {
+            yumiko.setAttackType("light");
+            yumiko.attack();
+        
+        } else if (keyCode == KeyEvent.VK_E) {
+            yumiko.setAttackType("heavy");
+            yumiko.attack();
+        
+        } else if (keyCode == KeyEvent.VK_R) {
+            yumiko.setAttackType("combo");
+            yumiko.attack();
+            
         }
     }
 
@@ -34,7 +50,14 @@ public class Controller implements KeyListener {
         if (keyCode == KeyEvent.VK_D) {
             yumiko.stopWalking();
             yumiko.startWalking(0);  
-        }
+        
+        } else if (keyCode == KeyEvent.VK_A) {
+            yumiko.stopWalking();
+            yumiko.startWalking(0);
+
+        } else if (keyCode == KeyEvent.VK_F) {
+            yumiko.stopWalking();
+            yumiko.startWalking(0);
+        }  
     }
-    
 }

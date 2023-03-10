@@ -8,8 +8,11 @@ import city.cs.engine.World;
 
 public class Player extends Walker {
 
-    private static final Shape playerShape = new BoxShape(1f, 2.00f);
+    private static final Shape playerShape = new BoxShape(1.00f, 2.00f);
+    private float imgSize = 9.00f;
     private boolean inAir;
+    private String direction;
+    private String attackType;
     private String currentPlayerState = "";
     private String nextPlayerState = "";
 
@@ -17,28 +20,81 @@ public class Player extends Walker {
         super(world, playerShape);
     }
 
-    public void animationManager(Vec2 velocity) {
+    public void attack() {
+
+    }
+    
+
+    public void playerMotion(Vec2 velocity, Vec2 position) {
+
+        if (((velocity.x > 0.00 || velocity.x < -0.10) && velocity.y < 0.1) && inAir == false) {
+            imgSize = 9.00f;
+
+            if (direction == "right") {
+                nextPlayerState = "run-right";
+            
+            } else if (direction == "left") {
+                nextPlayerState = "run-left";
+            }
+            
+        } else if (velocity.y > 0.10 || (inAir == true && velocity.y < 0.10)) {
+            imgSize = 9.00f;
+
+            if (direction == "right") {
+                nextPlayerState = "jump-right";
+            
+            } else if (direction == "left") {
+                nextPlayerState = "jump-left";
+            }
+
+            inAir = true;
+        
+        } else if ((velocity.x > -0.10 && velocity.x < 0.10) && velocity.y >= -0.10 && inAir == false) {
+            imgSize = 9.00f;
+            nextPlayerState = "idle";
+        } 
+        
+        if (attackType == "light" && inAir == false) {
+            imgSize = 14.00f;
+            nextPlayerState = "light-attack";
+        
+        } else if (attackType == "heavy" && inAir == false) {
+            imgSize = 14.00f;
+            nextPlayerState = "heavy-attack";
+        
+        } else if (attackType == "combo" && inAir == false) {
+            imgSize = 14.00f;
+            nextPlayerState = "combo-attack";
+        }
+    }
+
+    public void animationManager(Vec2 velocity, Vec2 position) {
 
         if (velocity.y == 0.00) {
             inAir = false;
         }
 
-        if (velocity.x > 0.00 && velocity.y < 0.1 && inAir == false) {
-            nextPlayerState = "run";
-
-        } else if (velocity.y > 0.1) {
-            nextPlayerState = "jump";
-            inAir = true;
+        if (velocity.x <= -0.10) {
+            direction = "left";
         
-        } else if (velocity.x > -0.1 && velocity.x < 0.1 && velocity.y < 0.1 && inAir == false) {
-            nextPlayerState = "idle";
+        } else {
+            direction = "right";
         }
+        
+        playerMotion(velocity, position);
 
         if (nextPlayerState != "" && !(nextPlayerState.equals(currentPlayerState))) {
             this.removeAllImages();
-            this.addImage(new BodyImage("res/sprites/player/yumiko-" + nextPlayerState + ".gif", 9.00f));
+            this.addImage(new BodyImage("res/sprites/player/yumiko-" + nextPlayerState + ".gif", imgSize));
             currentPlayerState = nextPlayerState;
         }
+    }
 
+    public String getAttackType() {
+        return attackType;
+    }
+
+    public void setAttackType(String type) {
+        attackType = type;
     }
 }

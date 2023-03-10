@@ -10,13 +10,11 @@ public class Tracker implements StepListener {
     }
 
     @Override
-    public void postStep(StepEvent post) {
-        yumiko.animationManager(yumiko.getLinearVelocity());
-    }
+    public void postStep(StepEvent post) {}
 
     @Override
     public void preStep(StepEvent pre) {
-
+        yumiko.animationManager(yumiko.getLinearVelocity(), yumiko.getPosition());
     }
     
 }
