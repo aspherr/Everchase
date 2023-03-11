@@ -13,7 +13,8 @@ import javax.swing.Timer;
 public class Game extends World implements ActionListener{
 
     private Player yumiko;
-    private Enemy critter;
+    private Enemy critterOne;
+    private Enemy critterTwo;
     private Timer clock;
 
     public Game() {
@@ -22,11 +23,34 @@ public class Game extends World implements ActionListener{
         ground.setPosition(new Vec2(0f, -11.50f));
         ground.addImage(new BodyImage("res/sprites/enviroment/ground.png", 0f));
 
-        yumiko = new Player(this);
-        yumiko.setPosition(new Vec2(0f, -10.00f));
+        Shape platformOneShape = new BoxShape(1.00f, 0.90f);
+        StaticBody platformOne = new StaticBody(this, platformOneShape);
+        platformOne.setPosition(new Vec2(0.00f, -4.50f));
+        platformOne.addImage(new BodyImage("res/sprites/enviroment/small-platform.png", 7.5f));
 
-        critter = new Enemy(this);
-        critter.setPosition(new Vec2(15.00f, -10.00f));
+        Shape platformTwoShape = new BoxShape(3.00f, 1.00f);
+        StaticBody platformTwo = new StaticBody(this, platformTwoShape);
+        platformTwo.setPosition(new Vec2(9.00f, 0f));
+        platformTwo.addImage(new BodyImage("res/sprites/enviroment/mid-platform.png", 7.5f));
+
+        Shape platformThreeShape = new BoxShape(6.00f, 1.00f);
+        StaticBody platformThree = new StaticBody(this, platformThreeShape);
+        platformThree.setPosition(new Vec2(-10.00f, 4f));
+        platformThree.addImage(new BodyImage("res/sprites/enviroment/long-platform.png", 7.5f));
+
+        Shape platformFourShape = new BoxShape(1.00f, 0.90f);
+        StaticBody platformFour = new StaticBody(this, platformFourShape);
+        platformFour.setPosition(new Vec2(18.00f, 5f));
+        platformFour.addImage(new BodyImage("res/sprites/enviroment/small-platform.png", 7.5f));
+
+        yumiko = new Player(this);
+        yumiko.setPosition(new Vec2(-20f, -10.00f));
+
+        critterOne = new Enemy(this);
+        critterOne.setPosition(new Vec2(15.00f, -10.00f));
+
+        critterTwo = new Enemy(this);
+        critterTwo.setPosition(new Vec2(-11.00f, 8.00f));
 
         clock = new Timer(1000, this);
         clock.start();

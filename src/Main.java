@@ -1,7 +1,7 @@
 import javax.swing.JFrame;
 
 // import of debugger tool; uncomment to use
-// import city.cs.engine.DebugViewer;
+import city.cs.engine.DebugViewer;
 
 
 public class Main {
@@ -24,7 +24,7 @@ public class Main {
         frame.pack();
 
         // optional: line below creates a debugger window; uncomment to use
-        // new DebugViewer(world, 900, 500);
+        new DebugViewer(world, 900, 500);
 
         world.start();
         view.requestFocus();
