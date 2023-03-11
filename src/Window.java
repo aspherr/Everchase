@@ -24,7 +24,6 @@ public class Window extends UserView {
     @Override
     protected void paintForeground(Graphics2D g) {
         int healthValue = yumiko.getHealth();
-        System.out.println(healthValue);
         g.drawImage(new ImageIcon("res/sprites/icons/health-0" + healthValue + ".png").getImage(),
                     15, 20, this);
     }

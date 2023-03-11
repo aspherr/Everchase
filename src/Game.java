@@ -13,6 +13,7 @@ import javax.swing.Timer;
 public class Game extends World implements ActionListener{
 
     private Player yumiko;
+    private Enemy critter;
     private Timer clock;
 
     public Game() {
@@ -23,6 +24,9 @@ public class Game extends World implements ActionListener{
 
         yumiko = new Player(this);
         yumiko.setPosition(new Vec2(0f, -10.00f));
+
+        critter = new Enemy(this);
+        critter.setPosition(new Vec2(15.00f, -10.00f));
 
         clock = new Timer(1000, this);
         clock.start();
