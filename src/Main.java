@@ -1,7 +1,7 @@
 import javax.swing.JFrame;
 
 // import of debugger tool; uncomment to use
-import city.cs.engine.DebugViewer;
+// import city.cs.engine.DebugViewer;
 
 
 public class Main {
@@ -13,7 +13,7 @@ public class Main {
         Controller playerController = new Controller(world.getPlayer());
         view.addKeyListener(playerController);
 
-        world.addStepListener(new Tracker(world.getPlayer()));
+        world.addStepListener(new Tracker(world.getPlayer(), world.getEnemy()));
 
         final JFrame frame = new JFrame("Everchase");
         frame.add(view);
@@ -24,7 +24,7 @@ public class Main {
         frame.pack();
 
         // optional: line below creates a debugger window; uncomment to use
-        new DebugViewer(world, 900, 500);
+        // new DebugViewer(world, 900, 500);
 
         world.start();
         view.requestFocus();

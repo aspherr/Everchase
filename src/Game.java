@@ -47,10 +47,12 @@ public class Game extends World implements ActionListener{
         yumiko.setPosition(new Vec2(-20f, -10.00f));
 
         critterOne = new Enemy(this);
-        critterOne.setPosition(new Vec2(15.00f, -10.00f));
+        critterOne.setPosition(new Vec2(12.00f, -10.00f));
+        critterOne.setDirection("left");
+        critterOne.setStartingPosition(new Vec2(12.00f, -10.00f));
 
         critterTwo = new Enemy(this);
-        critterTwo.setPosition(new Vec2(-11.00f, 8.00f));
+        critterTwo.setPosition(new Vec2(-11.00f, 5.00f));
 
         clock = new Timer(1000, this);
         clock.start();
@@ -58,6 +60,10 @@ public class Game extends World implements ActionListener{
 
     public Player getPlayer() {
         return yumiko;
+    }
+
+    public Enemy getEnemy() {
+        return critterOne;
     }
 
     @Override

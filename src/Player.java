@@ -1,14 +1,22 @@
 import org.jbox2d.common.Vec2;
 
 import city.cs.engine.BodyImage;
-import city.cs.engine.BoxShape;
+import city.cs.engine.PolygonShape;
 import city.cs.engine.Shape;
 import city.cs.engine.Walker;
 import city.cs.engine.World;
 
 public class Player extends Walker {
 
-    private static final Shape playerShape = new BoxShape(1.00f, 2.00f);
+    // right attack poly: 0.05f,1.77f, -1.09f,1.25f, -1.15f,-0.42f, -0.38f,-1.74f, 0.57f,-1.78f, 2.12f,0.26f, 1.05f,1.34f
+    // left attack poly: -0.1f,1.86f, 1.06f,1.34f, 1.09f,-0.24f, 0.41f,-1.79f, -0.41f,-1.78f, -2.58f,-0.01f, -1.26f,1.49f
+
+    private static final Shape playerShape = new PolygonShape(
+                                                -0.13f, 1.90f, -1.12f, 
+                                                1.34f, -1.26f, -0.27f, 
+                                                -0.65f, -1.82f, 0.46f, 
+                                                -1.83f, 0.90f, -0.27f, 
+                                                0.81f, 1.44f);
     private float imgSize = 9.00f;
     private boolean inAir;
     private String direction = "right";
