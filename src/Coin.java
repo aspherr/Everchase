@@ -8,11 +8,20 @@ public class Coin extends DynamicBody {
 
     private static final Shape coinShape = new CircleShape(0.35f);
     private static final BodyImage coinImage = new BodyImage("res/sprites/enviroment/coin.gif", 1.00f);
+    private static int coinsHeld;
     
     public Coin(World w) {
         super(w, coinShape);
         addImage(coinImage);
         setGravityScale(0);
+    }
+
+    public void incrementCoinsHeld() {
+        coinsHeld++;
+    }
+
+    public static int getCoinsHeld() {
+        return coinsHeld;
     }
     
 }

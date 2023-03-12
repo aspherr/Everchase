@@ -8,7 +8,7 @@ public class Main {
 
     public static void everchase() {
         Game world = new Game();
-        Window view = new Window(world, 900, 500, world.getPlayer());
+        Window view = new Window(world, 900, 500, world.getPlayer(), Coin.getCoinsHeld());
 
         Controller playerController = new Controller(world.getPlayer());
         view.addKeyListener(playerController);
