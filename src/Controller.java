@@ -20,12 +20,15 @@ public class Controller implements KeyListener {
         int keyCode = e.getKeyCode();
 
         if (keyCode == KeyEvent.VK_D) {
+            yumiko.setAttackingState(false);
             yumiko.startWalking(SPEED);
            
         } else if (keyCode == KeyEvent.VK_A) {
+            yumiko.setAttackingState(false);
             yumiko.startWalking(-SPEED);
         
         } else if (keyCode == KeyEvent.VK_W) {
+            yumiko.setAttackingState(false);
             yumiko.jump(SPEED*2.00f);
 
             if (keyCode == KeyEvent.VK_A) {
@@ -33,6 +36,8 @@ public class Controller implements KeyListener {
             } 
         
         } else if (keyCode == KeyEvent.VK_F) {
+
+            yumiko.setAttackingState(true);
 
             if (yumiko.getCurrentPlayerState() == "idle-left") {
                 yumiko.setNextPlayerState("light-attack-left");
@@ -42,6 +47,8 @@ public class Controller implements KeyListener {
             }
 
         } else if (keyCode == KeyEvent.VK_E) {
+
+            yumiko.setAttackingState(true);
 
             if (yumiko.getCurrentPlayerState() == "idle-left") {
                 yumiko.setNextPlayerState("heavy-attack-left");

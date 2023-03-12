@@ -54,8 +54,16 @@ public class Enemy extends Walker {
         return health;
     }
 
-    public void setHealth(int healthValue) {
-        health -= healthValue;
+    public void decrementHealth(Player yumiko) {
+
+        if (yumiko.getCurrentPlayerState() == "light-attack-right" || 
+            yumiko.getCurrentPlayerState() == "light-attack-left") {
+            health -= 1;
+
+        } else if (yumiko.getCurrentPlayerState() == "heavy-attack-right" ||
+                    yumiko.getCurrentPlayerState() == "heavy-attack-left") {
+            health -= 2;
+        }
     }
 
     public void setStartingPosition(Vec2 position) {

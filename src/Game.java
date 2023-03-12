@@ -26,6 +26,19 @@ public class Game extends World implements ActionListener{
         ground.setPosition(new Vec2(0f, -11.50f));
         ground.addImage(new BodyImage("res/sprites/enviroment/ground.png", 0f));
 
+        Shape ceilingShape = new BoxShape(50.00f, 1.5f);
+        StaticBody ceiling = new StaticBody(this, ceilingShape);
+        ceiling.setPosition(new Vec2(0f, 14.50f));
+
+        Shape rightWallShape = new BoxShape(1.50f, 50.00f);
+        StaticBody rightWall = new StaticBody(this, rightWallShape);
+        rightWall.setPosition(new Vec2(-25.00f, -11.50f));
+
+        Shape leftWallShape = new BoxShape(1.50f, 50.00f);
+        StaticBody leftWall = new StaticBody(this, leftWallShape);
+        leftWall.setPosition(new Vec2(25.00f, -11.50f));
+
+
         Shape platformOneShape = new BoxShape(1.00f, 0.90f);
         StaticBody platformOne = new StaticBody(this, platformOneShape);
         platformOne.setPosition(new Vec2(0.00f, -4.50f));
@@ -46,6 +59,7 @@ public class Game extends World implements ActionListener{
         platformFour.setPosition(new Vec2(18.00f, 5f));
         platformFour.addImage(new BodyImage("res/sprites/enviroment/small-platform.png", 7.5f));
 
+
         yumiko = new Player(this);
         yumiko.setPosition(new Vec2(-20f, -10.00f));
 
@@ -56,7 +70,7 @@ public class Game extends World implements ActionListener{
 
         critterTwo = new Enemy(this);
         critterTwo.setPosition(new Vec2(-11.00f, 5.00f));
-
+    
         coinOne = new Coin(this);
         coinOne.setPosition(new Vec2(-14.00f, 6.50f));
 

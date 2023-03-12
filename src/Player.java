@@ -1,15 +1,21 @@
+import java.util.List;
+
 import org.jbox2d.common.Vec2;
 
 import city.cs.engine.BodyImage;
+import city.cs.engine.Fixture;
 import city.cs.engine.PolygonShape;
 import city.cs.engine.Shape;
+import city.cs.engine.SolidFixture;
 import city.cs.engine.Walker;
 import city.cs.engine.World;
 
 public class Player extends Walker {
 
-    // right attack poly: 0.05f,1.77f, -1.09f,1.25f, -1.15f,-0.42f, -0.38f,-1.74f, 0.57f,-1.78f, 2.12f,0.26f, 1.05f,1.34f
-    // left attack poly: -0.1f,1.86f, 1.06f,1.34f, 1.09f,-0.24f, 0.41f,-1.79f, -0.41f,-1.78f, -2.58f,-0.01f, -1.26f,1.49f
+    @Override
+    public List<Fixture> getFixtureList() {
+        return super.getFixtureList();
+    }
 
     private static final Shape playerShape = new PolygonShape(
                                                 -0.13f, 1.90f, -1.12f, 
@@ -17,6 +23,25 @@ public class Player extends Walker {
                                                 -0.65f, -1.82f, 0.46f, 
                                                 -1.83f, 0.90f, -0.27f, 
                                                 0.81f, 1.44f);
+
+    private static final Shape rightAttackShape = new PolygonShape(
+                                                -0.02f, 1.84f, -1.01f, 1.47f, 
+                                                -1.18f ,-0.01f, -0.28f, -1.9f, 
+                                                0.34f, -1.88f, 3.28f, 0.24f, 
+                                                0.86f, 1.55f
+                                                );
+    
+    private static final Shape leftAttackShape = new PolygonShape(
+                                                -0.02f, 1.84f, -1.01f, 1.47f, 
+                                                -3.46f, 0.05f, -0.28f, -1.9f, 
+                                                0.34f, -1.88f, 1.26f, 0.01f, 
+                                                0.86f, 1.55f
+                                                );
+    
+    SolidFixture idle;
+    SolidFixture rightAttack;
+    SolidFixture leftAttack;
+        
     private float imgSize = 9.00f;
     private boolean inAir;
     private Boolean isAttacking;
@@ -27,11 +52,34 @@ public class Player extends Walker {
     private int health = 3;
 
     public Player(World world) {
-        super(world, playerShape);
+        super(world);
+        idle = new SolidFixture(this, playerShape);
         nextPlayerState = "idle-right";
     }
 
-    public void attack() {
+    public void configPolygons() {
+        
+        if (this.getFixtureList().contains(idle) && (nextPlayerState == "light-attack-right" || 
+                                                        nextPlayerState == "heavy-attack-right")) {
+            idle.destroy();
+            rightAttack = new SolidFixture(this, rightAttackShape);
+        
+        } else if (this.getFixtureList().contains(idle) && (nextPlayerState == "light-attack-left" || 
+                                                            nextPlayerState == "heavy-attack-left")) {
+            idle.destroy();
+            rightAttack = new SolidFixture(this, leftAttackShape);
+        }
+
+        if (this.getFixtureList().contains(rightAttack) && (nextPlayerState == "idle-right" || nextPlayerState == "idle-left" ||
+                                                            nextPlayerState == "run-right" || nextPlayerState == "run-left")) {
+            rightAttack.destroy();
+            idle = new SolidFixture(this, playerShape);
+
+        } else if (this.getFixtureList().contains(leftAttack) && (nextPlayerState == "idle-right" || nextPlayerState == "idle-left" ||
+                                                                    nextPlayerState == "run-right" || nextPlayerState == "run-left")) {
+            leftAttack.destroy();
+            idle = new SolidFixture(this, playerShape);
+        }
 
     }
     
@@ -46,7 +94,7 @@ public class Player extends Walker {
                 nextPlayerState = "run-left";
             }
             
-        } else if (velocity.y > 0.10 || (inAir == true && velocity.y < 0.10)) {
+        } else if (velocity.y > 1.00 || (inAir == true && velocity.y < 1.00)) {
 
             if (direction == "left" || currentPlayerState == "idle-left") {
                 nextPlayerState = "jump-left";
@@ -84,7 +132,7 @@ public class Player extends Walker {
         }
 
         playerMotion(velocity, position);
-
+    
         if (nextPlayerState != "" && !(nextPlayerState.equals(currentPlayerState))) {
             this.removeAllImages();
 

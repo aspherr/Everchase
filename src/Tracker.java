@@ -12,7 +12,9 @@ public class Tracker implements StepListener {
     }
 
     @Override
-    public void postStep(StepEvent post) {}
+    public void postStep(StepEvent post) {
+        yumiko.configPolygons();
+    }
 
     @Override
     public void preStep(StepEvent pre) {
