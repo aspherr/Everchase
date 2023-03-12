@@ -66,6 +66,9 @@ public class Game extends World implements ActionListener{
         coinThree = new Coin(this);
         coinThree.setPosition(new Vec2(-0.25f, -2.00f));
 
+        Collider collisionListener = new Collider();
+        yumiko.addCollisionListener(collisionListener);
+
         clock = new Timer(1000, this);
         clock.start();
     }

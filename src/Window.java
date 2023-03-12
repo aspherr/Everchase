@@ -11,12 +11,10 @@ public class Window extends UserView {
 
     private Image background;
     private Player yumiko;
-    private int coins;
 
-    public Window(World w, int width, int height, Player player, int pickups) {
+    public Window(World w, int width, int height, Player player) {
         super(w, width, height);
         this.yumiko = player;
-        this.coins = pickups;
         background = new ImageIcon("res/sprites/enviroment/background.png").getImage();
     }
 
@@ -42,6 +40,6 @@ public class Window extends UserView {
 
         g.setFont(new Font("PixelSmall", 0, 30));
         g.setColor(new Color(255, 255, 255));
-        g.drawString("COINS: " + coins, 18.50f, 80.00f);
+        g.drawString("COINS: " + Coin.getCoinsHeld(), 18.50f, 80.00f);
     }
 }

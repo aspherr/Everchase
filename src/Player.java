@@ -19,12 +19,12 @@ public class Player extends Walker {
                                                 0.81f, 1.44f);
     private float imgSize = 9.00f;
     private boolean inAir;
+    private Boolean isAttacking;
     private String direction = "right";
     private String currentPlayerState = "";
     private String nextPlayerState = "";
 
     private int health = 3;
-    private int coinsHeld = 0;
 
     public Player(World world) {
         super(world, playerShape);
@@ -117,11 +117,12 @@ public class Player extends Walker {
         health -= 1;
     }
 
-    public int getCoinsHeld() {
-        return coinsHeld;
+    public boolean getAttackingState() {
+        return isAttacking;
     }
 
-    public void incrementCoinsHeld() {
-        coinsHeld += 1;     
+    public void setAttackingState(boolean state) {
+        isAttacking = state;
     }
+
 }
