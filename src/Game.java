@@ -15,6 +15,9 @@ public class Game extends World implements ActionListener{
     private Player yumiko;
     private Enemy critterOne;
     private Enemy critterTwo;
+    private Coin coinOne;
+    private Coin coinTwo;
+    private Coin coinThree;
     private Timer clock;
 
     public Game() {
@@ -53,6 +56,15 @@ public class Game extends World implements ActionListener{
 
         critterTwo = new Enemy(this);
         critterTwo.setPosition(new Vec2(-11.00f, 5.00f));
+
+        coinOne = new Coin(this);
+        coinOne.setPosition(new Vec2(-14.00f, 6.50f));
+
+        coinTwo = new Coin(this);
+        coinTwo.setPosition(new Vec2(17.90f, 7.50f));
+
+        coinThree = new Coin(this);
+        coinThree.setPosition(new Vec2(-0.25f, -2.00f));
 
         clock = new Timer(1000, this);
         clock.start();

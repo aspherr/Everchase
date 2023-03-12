@@ -24,6 +24,7 @@ public class Player extends Walker {
     private String nextPlayerState = "";
 
     private int health = 3;
+    private int coinsHeld = 0;
 
     public Player(World world) {
         super(world, playerShape);
@@ -112,7 +113,15 @@ public class Player extends Walker {
         return health;
     }
 
-    public void setHealth(int healthValue) {
-        health -= healthValue;
+    public void decrementHealth() {
+        health -= 1;
+    }
+
+    public int getCoinsHeld() {
+        return coinsHeld;
+    }
+
+    public void incrementCoinsHeld() {
+        coinsHeld += 1;     
     }
 }
