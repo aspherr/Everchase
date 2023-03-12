@@ -10,6 +10,7 @@ public class Main {
         Game world = new Game();
         Window view = new Window(world, 900, 500, world.getPlayer());
 
+        // detects inputs from keyboard
         Controller playerController = new Controller(world.getPlayer());
         view.addKeyListener(playerController);
 

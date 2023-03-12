@@ -13,7 +13,7 @@ public class Enemy extends Walker {
                                             -1.62f, -0.58f, -0.97f, -1.18f, 
                                             0.82f, -1.18f, 1.44f, -0.52f, 1.14f,
                                             0.62f, 0.52f, 0.85f);
-    private int health = 8;
+    private int health = 5;
     private float SPEED = 1.50f;
     private String direction;
     private Vec2 startingPosition;
@@ -24,6 +24,8 @@ public class Enemy extends Walker {
     }
 
     public void enemyMotion() {
+
+        // allows for patrolling behavior
         
         if (this.getPosition().x < (startingPosition.x - 6.00f)) {
             direction = "right";
@@ -34,6 +36,8 @@ public class Enemy extends Walker {
     }
 
     public void animationManager() {
+
+        // controls animation for patrolling behaviour
 
         enemyMotion();
 
@@ -55,6 +59,8 @@ public class Enemy extends Walker {
     }
 
     public void decrementHealth(Player yumiko) {
+
+        // decrements enemy's health depending on the type of attack used
 
         if (yumiko.getCurrentPlayerState() == "light-attack-right" || 
             yumiko.getCurrentPlayerState() == "light-attack-left") {

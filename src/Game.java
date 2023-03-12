@@ -21,6 +21,8 @@ public class Game extends World implements ActionListener{
     private Timer clock;
 
     public Game() {
+
+        // Walls for each side of the window
         Shape groundShape = new BoxShape(50.00f, 1.5f);
         StaticBody ground = new StaticBody(this, groundShape);
         ground.setPosition(new Vec2(0f, -11.50f));
@@ -38,7 +40,7 @@ public class Game extends World implements ActionListener{
         StaticBody leftWall = new StaticBody(this, leftWallShape);
         leftWall.setPosition(new Vec2(25.00f, -11.50f));
 
-
+        // platforms for basic level design
         Shape platformOneShape = new BoxShape(1.00f, 0.90f);
         StaticBody platformOne = new StaticBody(this, platformOneShape);
         platformOne.setPosition(new Vec2(0.00f, -4.50f));
@@ -59,10 +61,11 @@ public class Game extends World implements ActionListener{
         platformFour.setPosition(new Vec2(18.00f, 5f));
         platformFour.addImage(new BodyImage("res/sprites/enviroment/small-platform.png", 7.5f));
 
-
+        // player
         yumiko = new Player(this);
         yumiko.setPosition(new Vec2(-20f, -10.00f));
 
+        // Two enemies 
         critterOne = new Enemy(this);
         critterOne.setPosition(new Vec2(12.00f, -10.00f));
         critterOne.setDirection("left");
@@ -70,7 +73,8 @@ public class Game extends World implements ActionListener{
 
         critterTwo = new Enemy(this);
         critterTwo.setPosition(new Vec2(-11.00f, 5.00f));
-    
+        
+        // Three collectible coins
         coinOne = new Coin(this);
         coinOne.setPosition(new Vec2(-14.00f, 6.50f));
 
@@ -79,10 +83,12 @@ public class Game extends World implements ActionListener{
 
         coinThree = new Coin(this);
         coinThree.setPosition(new Vec2(-0.25f, -2.00f));
-
+         
+        // detects for collisions with the player's body
         Collider collisionListener = new Collider();
         yumiko.addCollisionListener(collisionListener);
 
+        // timer to delay certain attack gifs
         clock = new Timer(1000, this);
         clock.start();
     }
@@ -98,11 +104,13 @@ public class Game extends World implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent ae) {
 
+        // if in the right-side attack, switch back to idle after timer runs our
         if (yumiko.getCurrentPlayerState() == "light-attack-right" || 
             yumiko.getCurrentPlayerState() == "heavy-attack-right") {
 
             yumiko.setNextPlayerState("idle-right");
-            
+        
+        // if in the left-side attack, switch back to idle after timer runs our
         } else if (yumiko.getCurrentPlayerState() == "light-attack-left" ||
                     yumiko.getCurrentPlayerState() == "heavy-attack-left") {
 

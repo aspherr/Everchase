@@ -47,44 +47,48 @@ public class Player extends Walker {
     private Boolean isAttacking;
     private String direction = "right";
     private String currentPlayerState = "";
-    private String nextPlayerState = "";
+    private String nextPlayerState = "idle-right";
 
     private int health = 3;
 
     public Player(World world) {
         super(world);
         idle = new SolidFixture(this, playerShape);
-        nextPlayerState = "idle-right";
     }
 
     public void configPolygons() {
         
+        // if idle and attacking, change polygon to attack right shape
         if (this.getFixtureList().contains(idle) && (nextPlayerState == "light-attack-right" || 
                                                         nextPlayerState == "heavy-attack-right")) {
             idle.destroy();
             rightAttack = new SolidFixture(this, rightAttackShape);
         
+        // if idle and attacking, change polygon to attack left shape
         } else if (this.getFixtureList().contains(idle) && (nextPlayerState == "light-attack-left" || 
                                                             nextPlayerState == "heavy-attack-left")) {
             idle.destroy();
             rightAttack = new SolidFixture(this, leftAttackShape);
-        }
-
-        if (this.getFixtureList().contains(rightAttack) && (nextPlayerState == "idle-right" || nextPlayerState == "idle-left" ||
-                                                            nextPlayerState == "run-right" || nextPlayerState == "run-left")) {
+        
+        // when finished attacking right, switch to idle right 
+        } else if (this.getFixtureList().contains(rightAttack) && (nextPlayerState == "idle-right" || nextPlayerState == "run-right")) {
             rightAttack.destroy();
             idle = new SolidFixture(this, playerShape);
-
-        } else if (this.getFixtureList().contains(leftAttack) && (nextPlayerState == "idle-right" || nextPlayerState == "idle-left" ||
-                                                                    nextPlayerState == "run-right" || nextPlayerState == "run-left")) {
+            currentPlayerState = "idle-left";
+        
+        // when finished attacking left, switch to idle left
+        } else if (this.getFixtureList().contains(leftAttack) && (nextPlayerState == "idle-left" || nextPlayerState == "run-left")) {
             leftAttack.destroy();
             idle = new SolidFixture(this, playerShape);
+            currentPlayerState = "idle-right";
+
         }
 
     }
     
     public void playerMotion(Vec2 velocity, Vec2 position) {
-
+         
+        // if the player is moving, then use run gif 
         if (((velocity.x > 0.00 || velocity.x < -0.10) && velocity.y < 0.1) && inAir == false) {
 
             if (direction == "right") {
@@ -93,7 +97,8 @@ public class Player extends Walker {
             } else if (direction == "left") {
                 nextPlayerState = "run-left";
             }
-            
+        
+        // if the player is moving upwards, then use jump-right gif 
         } else if (velocity.y > 1.00 || (inAir == true && velocity.y < 1.00)) {
 
             if (direction == "left" || currentPlayerState == "idle-left") {
@@ -106,6 +111,7 @@ public class Player extends Walker {
 
             inAir = true;
         
+        // if player isn't moving, then use idle gif
         } else if ((velocity.x > -0.10 && velocity.x < 0.10) && velocity.y >= -0.10 && inAir == false) {
   
             if (currentPlayerState == "jump-left" || currentPlayerState == "run-left") {
@@ -124,6 +130,7 @@ public class Player extends Walker {
             inAir = false;
         }
 
+        // swicthes direction based on if you moving left (-velocity) or moving right (+velocity)
         if ((velocity.x <= -0.10f) || (currentPlayerState == "jump-left" && velocity.x < 0.10f)) {
             direction = "left";
             
@@ -136,6 +143,7 @@ public class Player extends Walker {
         if (nextPlayerState != "" && !(nextPlayerState.equals(currentPlayerState))) {
             this.removeAllImages();
 
+            // scaling of gifs
             if (nextPlayerState == "light-attack-right" || nextPlayerState == "light-attack-left" ||
                 nextPlayerState == "heavy-attack-right" || nextPlayerState == "heavy-attack-left") {
                 imgSize = 14.00f;
@@ -151,6 +159,10 @@ public class Player extends Walker {
 
     public String getCurrentPlayerState() {
         return currentPlayerState;
+    }
+
+    public String getNextPlayerState() {
+        return nextPlayerState;
     }
 
     public void setNextPlayerState(String state) {

@@ -19,22 +19,27 @@ public class Controller implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
 
+        // walk right
         if (keyCode == KeyEvent.VK_D) {
             yumiko.setAttackingState(false);
             yumiko.startWalking(SPEED);
-           
+        
+        // walk left 
         } else if (keyCode == KeyEvent.VK_A) {
             yumiko.setAttackingState(false);
             yumiko.startWalking(-SPEED);
         
+        // jump
         } else if (keyCode == KeyEvent.VK_W) {
             yumiko.setAttackingState(false);
             yumiko.jump(SPEED*2.00f);
 
+            // allows for change in direction mid-jump
             if (keyCode == KeyEvent.VK_A) {
                 yumiko.setNextPlayerState("jump-left");
             } 
         
+        // light attack
         } else if (keyCode == KeyEvent.VK_F) {
 
             yumiko.setAttackingState(true);
@@ -46,6 +51,7 @@ public class Controller implements KeyListener {
                 yumiko.setNextPlayerState("light-attack-right");
             }
 
+        // heavy attack
         } else if (keyCode == KeyEvent.VK_E) {
 
             yumiko.setAttackingState(true);

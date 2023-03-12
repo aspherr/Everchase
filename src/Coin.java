@@ -1,6 +1,7 @@
 import city.cs.engine.BodyImage;
 import city.cs.engine.CircleShape;
 import city.cs.engine.DynamicBody;
+// import city.cs.engine.GhostlyFixture;
 import city.cs.engine.Shape;
 import city.cs.engine.World;
 
@@ -12,6 +13,8 @@ public class Coin extends DynamicBody {
     
     public Coin(World w) {
         super(w, coinShape);
+        // sensor listener bugged
+        // GhostlyFixture coinGhostFixture = new GhostlyFixture(this, coinShape); 
         addImage(coinImage);
         setGravityScale(0);
     }
