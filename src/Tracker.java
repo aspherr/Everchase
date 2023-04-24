@@ -3,12 +3,12 @@ import city.cs.engine.StepListener;
 
 public class Tracker implements StepListener {
 
-    private Player yumiko;
-    private Enemy critter;
+    private final Player yumiko;
+    private final Enemy critter;
 
-    public Tracker(Player yumiko, Enemy criiter) {
+    public Tracker(Player yumiko, Enemy critter) {
         this.yumiko = yumiko;
-        this.critter = criiter;
+        this.critter = critter;
     }
 
     @Override

@@ -15,7 +15,7 @@ public class Window extends UserView {
     public Window(World w, int width, int height, Player player) {
         super(w, width, height);
         this.yumiko = player;
-        background = new ImageIcon("res/sprites/enviroment/background.png").getImage();
+        background = new ImageIcon("res/sprites/environment/background.png").getImage();
     }
 
     // draws the background

@@ -17,7 +17,7 @@ public class Collider implements CollisionListener {
             ((Enemy) c.getOtherBody()).startWalking(0);
 
             // attacking the enemy collision
-            if (((Player) c.getReportingBody()).getAttackingState() == true) {
+            if (((Player) c.getReportingBody()).getAttackingState()) {
                 
                 // decrement enemy's health and if health <= 0, then destroy enemy object
                 ((Enemy) c.getOtherBody()).decrementHealth((Player) c.getReportingBody());

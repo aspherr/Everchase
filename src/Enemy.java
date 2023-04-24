@@ -6,6 +6,8 @@ import city.cs.engine.Shape;
 import city.cs.engine.Walker;
 import city.cs.engine.World;
 
+import java.util.Objects;
+
 public class Enemy extends Walker {
 
     private static final Shape enemyShape = new PolygonShape(
@@ -41,12 +43,12 @@ public class Enemy extends Walker {
 
         enemyMotion();
 
-        if (direction == "right") {
+        if (Objects.equals(direction, "right")) {
             this.removeAllImages();
             this.addImage(new BodyImage("res/sprites/enemy/critter-walk-right.gif", 5.00f));
             this.startWalking(SPEED);
 
-        } else if (direction == "left")  {
+        } else if (Objects.equals(direction, "left"))  {
             this.removeAllImages();
             this.addImage(new BodyImage("res/sprites/enemy/critter-walk-left.gif", 5.00f));
             this.startWalking(-SPEED); 
@@ -62,12 +64,12 @@ public class Enemy extends Walker {
 
         // decrements enemy's health depending on the type of attack used
 
-        if (yumiko.getCurrentPlayerState() == "light-attack-right" || 
-            yumiko.getCurrentPlayerState() == "light-attack-left") {
+        if (Objects.equals(yumiko.getCurrentPlayerState(), "light-attack-right") ||
+                Objects.equals(yumiko.getCurrentPlayerState(), "light-attack-left")) {
             health -= 1;
 
-        } else if (yumiko.getCurrentPlayerState() == "heavy-attack-right" ||
-                    yumiko.getCurrentPlayerState() == "heavy-attack-left") {
+        } else if (Objects.equals(yumiko.getCurrentPlayerState(), "heavy-attack-right") ||
+                Objects.equals(yumiko.getCurrentPlayerState(), "heavy-attack-left")) {
             health -= 2;
         }
     }

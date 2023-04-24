@@ -8,7 +8,7 @@ import city.cs.engine.World;
 public class Coin extends DynamicBody {
 
     private static final Shape coinShape = new CircleShape(0.35f);
-    private static final BodyImage coinImage = new BodyImage("res/sprites/enviroment/coin.gif", 1.00f);
+    private static final BodyImage coinImage = new BodyImage("res/sprites/environment/coin.gif", 1.00f);
     private static int coinsHeld;
     
     public Coin(World w) {

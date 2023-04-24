@@ -1,10 +1,11 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Objects;
 
 public class Controller implements KeyListener {
     private static final float SPEED = 6.00f;
     
-    private Player yumiko;
+    private final Player yumiko;
 
     public Controller(Player yumiko) {
         this.yumiko = yumiko;
@@ -37,17 +38,17 @@ public class Controller implements KeyListener {
             // allows for change in direction mid-jump
             if (keyCode == KeyEvent.VK_A) {
                 yumiko.setNextPlayerState("jump-left");
-            } 
-        
+            }
+
         // light attack
         } else if (keyCode == KeyEvent.VK_F) {
 
             yumiko.setAttackingState(true);
 
-            if (yumiko.getCurrentPlayerState() == "idle-left") {
+            if (Objects.equals(yumiko.getCurrentPlayerState(), "idle-left")) {
                 yumiko.setNextPlayerState("light-attack-left");
             
-            } else if (yumiko.getCurrentPlayerState() == "idle-right") {
+            } else if (Objects.equals(yumiko.getCurrentPlayerState(), "idle-right")) {
                 yumiko.setNextPlayerState("light-attack-right");
             }
 
@@ -56,10 +57,10 @@ public class Controller implements KeyListener {
 
             yumiko.setAttackingState(true);
 
-            if (yumiko.getCurrentPlayerState() == "idle-left") {
+            if (Objects.equals(yumiko.getCurrentPlayerState(), "idle-left")) {
                 yumiko.setNextPlayerState("heavy-attack-left");
             
-            } else if (yumiko.getCurrentPlayerState() == "idle-right") {
+            } else if (Objects.equals(yumiko.getCurrentPlayerState(), "idle-right")) {
                 yumiko.setNextPlayerState("heavy-attack-right");
             }
         } 
