@@ -1,3 +1,5 @@
+package Everchase;
+
 import javax.swing.JFrame;
 
 // import of debugger tool; uncomment to use
@@ -8,13 +10,10 @@ public class Main {
 
     public static void everchase() {
         Game world = new Game();
+        Manager manager = new Manager();
         Window view = new Window(world, 900, 500, world.getPlayer());
 
-        // detects inputs from keyboard
-        Controller playerController = new Controller(world.getPlayer());
-        view.addKeyListener(playerController);
-
-        world.addStepListener(new Tracker(world.getPlayer(), world.getEnemy()));
+        manager.loadLevel(view, 1);
 
         final JFrame frame = new JFrame("Everchase");
         frame.add(view);

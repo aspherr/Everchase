@@ -1,3 +1,5 @@
+package Everchase;
+
 import org.jbox2d.common.Vec2;
 
 import city.cs.engine.BodyImage;
@@ -72,6 +74,10 @@ public class Enemy extends Walker {
                 Objects.equals(yumiko.getCurrentPlayerState(), "heavy-attack-left")) {
             health -= 2;
         }
+    }
+
+    public boolean isDead() {
+        return health == 0;
     }
 
     public void setStartingPosition(Vec2 position) {
