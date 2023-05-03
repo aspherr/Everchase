@@ -11,9 +11,9 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 import javax.swing.Timer;
 
-public class Game extends World implements ActionListener{
+public class Game extends World {
 
-    private final Player yumiko;
+    private final Player player;
     private final Enemy critterOne;
 
     public Game() {
@@ -58,8 +58,8 @@ public class Game extends World implements ActionListener{
         platformFour.addImage(new BodyImage("res/sprites/environment/small-platform.png", 7.5f));
 
         // player
-        yumiko = new Player(this);
-        yumiko.setPosition(new Vec2(-20f, -10.00f));
+        player = new Player(this);
+        player.setPosition(new Vec2(-20f, -10.00f));
 
         // Two enemies 
         critterOne = new Enemy(this);
@@ -69,7 +69,7 @@ public class Game extends World implements ActionListener{
 
         Enemy critterTwo = new Enemy(this);
         critterTwo.setPosition(new Vec2(-11.00f, 5.00f));
-        
+
         // Three collectible coins
         Coin coinOne = new Coin(this);
         coinOne.setPosition(new Vec2(-14.00f, 6.50f));
@@ -79,38 +79,18 @@ public class Game extends World implements ActionListener{
 
         Coin coinThree = new Coin(this);
         coinThree.setPosition(new Vec2(-0.25f, -2.00f));
-         
+
         // detects for collisions with the player's body
         Collider collisionListener = new Collider();
-        yumiko.addCollisionListener(collisionListener);
-
-        // timer to delay certain attack gifs
-        Timer clock = new Timer(1000, this);
-        clock.start();
+        player.addCollisionListener(collisionListener);
     }
 
     public Player getPlayer() {
-        return yumiko;
+        return player;
     }
 
     public Enemy getEnemy() {
         return critterOne;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-
-        // if in the right-side attack, switch back to idle after timer runs our
-        if (Objects.equals(yumiko.getCurrentPlayerState(), "light-attack-right") ||
-                Objects.equals(yumiko.getCurrentPlayerState(), "heavy-attack-right")) {
-
-            yumiko.setNextPlayerState("idle-right");
-        
-        // if in the left-side attack, switch back to idle after timer runs our
-        } else if (Objects.equals(yumiko.getCurrentPlayerState(), "light-attack-left") ||
-                Objects.equals(yumiko.getCurrentPlayerState(), "heavy-attack-left")) {
-
-            yumiko.setNextPlayerState("idle-left");
-        }
-    }
 }

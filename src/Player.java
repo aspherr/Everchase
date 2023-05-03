@@ -1,3 +1,5 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,7 +13,9 @@ import city.cs.engine.SolidFixture;
 import city.cs.engine.Walker;
 import city.cs.engine.World;
 
-public class Player extends Walker {
+import javax.swing.*;
+
+public class Player extends Walker implements ActionListener {
 
     @Override
     public List<Fixture> getFixtureList() {
@@ -43,11 +47,14 @@ public class Player extends Walker {
     SolidFixture rightAttack;
     SolidFixture leftAttack;
 
+    private float imgSize = 9.00f;
     private boolean inAir;
-    private Boolean isAttacking;
+    private Boolean isAttacking = false;
     private String direction = "right";
     private String currentPlayerState = "";
     private String nextPlayerState = "idle-right";
+
+    private final Timer attackTimer = new Timer(0, this);
 
     private int health = 3;
 
@@ -93,10 +100,10 @@ public class Player extends Walker {
         // if the player is moving, then use run gif 
         if (((velocity.x > 0.00 || velocity.x < -0.10) && velocity.y < 0.1) && !inAir) {
 
-            if (direction == "right") {
+            if (Objects.equals(direction, "right")) {
                 nextPlayerState = "run-right";
             
-            } else if (direction == "left") {
+            } else if (Objects.equals(direction, "left")) {
                 nextPlayerState = "run-left";
             }
         
@@ -108,7 +115,6 @@ public class Player extends Walker {
             
             } else if (direction == "right") {
                 nextPlayerState = "jump-right";
-
             }
 
             inAir = true;
@@ -116,13 +122,14 @@ public class Player extends Walker {
         // if player isn't moving, then use idle gif
         } else if ((velocity.x > -0.10 && velocity.x < 0.10) && velocity.y >= -0.10 && !inAir) {
   
-            if (currentPlayerState == "jump-left" || currentPlayerState == "run-left") {
+            if (Objects.equals(currentPlayerState, "jump-left") ||
+                    Objects.equals(currentPlayerState, "run-left")) {
                 nextPlayerState = "idle-left";
             
-            } else if (currentPlayerState == "jump-right" || currentPlayerState == "run-right") {
+            } else if (Objects.equals(currentPlayerState, "jump-right") ||
+                    Objects.equals(currentPlayerState, "run-right")) {
                 nextPlayerState = "idle-right";
             }
-
         } 
     }
 
@@ -141,23 +148,55 @@ public class Player extends Walker {
         }
 
         playerMotion(velocity, position);
-    
-        if (!Objects.equals(nextPlayerState, "") && !(nextPlayerState.equals(currentPlayerState))) {
-            this.removeAllImages();
 
-            // scaling of gifs
-            float imgSize = 9.00f;
-            if (Objects.equals(nextPlayerState, "light-attack-right") || nextPlayerState == "light-attack-left" ||
-                    Objects.equals(nextPlayerState, "heavy-attack-right") || nextPlayerState == "heavy-attack-left") {
+        if (!Objects.equals(nextPlayerState, "") && !(nextPlayerState.equals(currentPlayerState))) {
+
+            // scaling and timings of 'attack' gifs
+            if (Objects.equals(nextPlayerState, "light-attack-right") ||
+                    Objects.equals(nextPlayerState, "light-attack-left")) {
                 imgSize = 14.00f;
+
+                attackTimer.setInitialDelay(500);
+                attackTimer.setRepeats(false);
+                attackTimer.start();
+
+            } else if (Objects.equals(nextPlayerState, "heavy-attack-right") ||
+                    Objects.equals(nextPlayerState, "heavy-attack-left")) {
+                imgSize = 14.00f;
+
+                attackTimer.setInitialDelay(700);
+                attackTimer.setRepeats(false);
+                attackTimer.start();
 
             } else {
                 imgSize = 9.00f;
             }
 
-            this.addImage(new BodyImage("res/sprites/player/yumiko-" + nextPlayerState + ".gif", imgSize));
+            this.removeAllImages();
+            this.addImage(new BodyImage("res/sprites/player/" + nextPlayerState + ".gif", imgSize));
             currentPlayerState = nextPlayerState;
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        this.removeAllImages();
+        if (Objects.equals(nextPlayerState, "light-attack-right") ||
+                Objects.equals(nextPlayerState, "heavy-attack-right")) {
+
+            imgSize = 9.00f;
+            this.addImage(new BodyImage("res/sprites/player/idle-right.gif", imgSize));
+
+        } else if (Objects.equals(nextPlayerState, "light-attack-left") ||
+                Objects.equals(nextPlayerState, "heavy-attack-left")) {
+
+            imgSize = 9.00f;
+            this.addImage(new BodyImage("res/sprites/player/idle-left.gif", imgSize));
+        }
+
+        currentPlayerState = nextPlayerState;
+        attackTimer.stop();
     }
 
     public String getCurrentPlayerState() {
@@ -186,6 +225,9 @@ public class Player extends Walker {
 
     public void setAttackingState(boolean state) {
         isAttacking = state;
+    }
+
+    public void setIsHeavyAttack(boolean state) {
     }
 
 }

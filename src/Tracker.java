@@ -3,22 +3,23 @@ import city.cs.engine.StepListener;
 
 public class Tracker implements StepListener {
 
-    private final Player yumiko;
+    private final Player player;
     private final Enemy critter;
 
-    public Tracker(Player yumiko, Enemy critter) {
-        this.yumiko = yumiko;
+    public Tracker(Player player, Enemy critter) {
+        this.player = player;
         this.critter = critter;
     }
 
     @Override
     public void postStep(StepEvent post) {
-        yumiko.configPolygons();
+        player.configPolygons();
+        player.animationManager(player.getLinearVelocity(), player.getPosition());
     }
 
     @Override
     public void preStep(StepEvent pre) {
-        yumiko.animationManager(yumiko.getLinearVelocity(), yumiko.getPosition());
+        player.animationManager(player.getLinearVelocity(), player.getPosition());
         critter.animationManager();
     }
     

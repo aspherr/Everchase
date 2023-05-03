@@ -9,8 +9,8 @@ import javax.swing.ImageIcon;
 
 public class Window extends UserView {
 
-    private Image background;
-    private Player yumiko;
+    private final Image background;
+    private final Player yumiko;
 
     public Window(World w, int width, int height, Player player) {
         super(w, width, height);
@@ -24,7 +24,7 @@ public class Window extends UserView {
         g.drawImage(background, 0, -280, this);
     }
 
-    //draws the forground
+    //draws the foreground
     @Override
     protected void paintForeground(Graphics2D g) {
         // draws health bar status
@@ -43,7 +43,7 @@ public class Window extends UserView {
         }
 
         // renders text to display number of coins held
-        g.setFont(new Font("PixelSmall", 0, 30));
+        g.setFont(new Font("PixelSmall", Font.PLAIN, 30));
         g.setColor(new Color(255, 255, 255));
         g.drawString("COINS: " + Coin.getCoinsHeld(), 18.50f, 80.00f);
     }

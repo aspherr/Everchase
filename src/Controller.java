@@ -5,10 +5,10 @@ import java.util.Objects;
 public class Controller implements KeyListener {
     private static final float SPEED = 6.00f;
     
-    private final Player yumiko;
+    private final Player player;
 
-    public Controller(Player yumiko) {
-        this.yumiko = yumiko;
+    public Controller(Player player) {
+        this.player = player;
     }
 
     @Override
@@ -22,46 +22,49 @@ public class Controller implements KeyListener {
 
         // walk right
         if (keyCode == KeyEvent.VK_D) {
-            yumiko.setAttackingState(false);
-            yumiko.startWalking(SPEED);
+            player.setAttackingState(false);
+            player.startWalking(SPEED);
         
         // walk left 
         } else if (keyCode == KeyEvent.VK_A) {
-            yumiko.setAttackingState(false);
-            yumiko.startWalking(-SPEED);
+            player.setAttackingState(false);
+            player.startWalking(-SPEED);
         
         // jump
         } else if (keyCode == KeyEvent.VK_W) {
-            yumiko.setAttackingState(false);
-            yumiko.jump(SPEED*2.00f);
+            player.setAttackingState(false);
+            player.jump(SPEED*2.00f);
 
             // allows for change in direction mid-jump
             if (keyCode == KeyEvent.VK_A) {
-                yumiko.setNextPlayerState("jump-left");
+                player.setNextPlayerState("jump-left");
             }
 
         // light attack
         } else if (keyCode == KeyEvent.VK_F) {
 
-            yumiko.setAttackingState(true);
+            player.setAttackingState(true);
+            player.setIsHeavyAttack(false);
 
-            if (Objects.equals(yumiko.getCurrentPlayerState(), "idle-left")) {
-                yumiko.setNextPlayerState("light-attack-left");
+            if (Objects.equals(player.getCurrentPlayerState(), "idle-left")) {
+                player.setNextPlayerState("light-attack-left");
+
             
-            } else if (Objects.equals(yumiko.getCurrentPlayerState(), "idle-right")) {
-                yumiko.setNextPlayerState("light-attack-right");
+            } else if (Objects.equals(player.getCurrentPlayerState(), "idle-right")) {
+                player.setNextPlayerState("light-attack-right");
             }
 
         // heavy attack
         } else if (keyCode == KeyEvent.VK_E) {
 
-            yumiko.setAttackingState(true);
+            player.setAttackingState(true);
+            player.setIsHeavyAttack(true);
 
-            if (Objects.equals(yumiko.getCurrentPlayerState(), "idle-left")) {
-                yumiko.setNextPlayerState("heavy-attack-left");
+            if (Objects.equals(player.getCurrentPlayerState(), "idle-left")) {
+                player.setNextPlayerState("heavy-attack-left");
             
-            } else if (Objects.equals(yumiko.getCurrentPlayerState(), "idle-right")) {
-                yumiko.setNextPlayerState("heavy-attack-right");
+            } else if (Objects.equals(player.getCurrentPlayerState(), "idle-right")) {
+                player.setNextPlayerState("heavy-attack-right");
             }
         } 
     }
@@ -71,12 +74,12 @@ public class Controller implements KeyListener {
         int keyCode = e.getKeyCode();
 
         if (keyCode == KeyEvent.VK_D) {
-            yumiko.stopWalking();
-            yumiko.startWalking(0); 
+            player.stopWalking();
+            player.startWalking(0);
         
         } else if (keyCode == KeyEvent.VK_A) {
-            yumiko.stopWalking();
-            yumiko.startWalking(0);  
+            player.stopWalking();
+            player.startWalking(0);
         } 
     }
 }
