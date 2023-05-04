@@ -4,18 +4,31 @@ import Everchase.*;
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 
+import java.io.IOException;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 
 public class One extends Manager {
 
-    Player player = new Player(this);
+    public SoundClip bgm;
+    public final String bgPath = "";
 
-    Enemy critterOne = new Enemy(this);
-    Enemy critterTwo = new Enemy(this);
-
-    Enemy[] critterCollection = new Enemy[2];
+    private final Enemy critterOne = new Enemy(this);
+    private final Enemy critterTwo = new Enemy(this);
+    private final Enemy[] critterCollection = new Enemy[2];
 
     public One(Window view) {
         super();
+
+        try {
+            bgm = new SoundClip("res/sfx/bgm/level-1-bgm.wav");
+            bgm.setVolume(0.15f);
+            bgm.loop();
+
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            System.out.println(e);
+        }
 
         // Walls for each side of the window
         Shape groundShape = new BoxShape(50.00f, 1.5f);
@@ -39,6 +52,7 @@ public class One extends Manager {
         generateEnemies();
         generatePickups();
 
+        Player player = new Player(this);
         player.setPosition(new Vec2(-20f, -10.00f));
 
         // detects for collisions with the player's body
