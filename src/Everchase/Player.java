@@ -59,6 +59,7 @@ public class Player extends Walker implements ActionListener {
     private final Timer attackTimer = new Timer(0, this);
 
     private int health = 3;
+    private int coinsCollected = 0;
 
     public Player(World world) {
         super(world);
@@ -97,7 +98,7 @@ public class Player extends Walker implements ActionListener {
 
     }
     
-    public void playerMotion(Vec2 velocity, Vec2 position) {
+    public void playerMotion(Vec2 velocity) {
          
         // if the player is moving, then use run gif 
         if (((velocity.x > 0.00 || velocity.x < -0.10) && velocity.y < 0.1) && !inAir) {
@@ -115,7 +116,7 @@ public class Player extends Walker implements ActionListener {
             if (Objects.equals(direction, "left") || Objects.equals(currentPlayerState, "idle-left")) {
                 nextPlayerState = "jump-left";
             
-            } else if (direction == "right") {
+            } else if (Objects.equals(direction, "right")) {
                 nextPlayerState = "jump-right";
             }
 
@@ -135,7 +136,7 @@ public class Player extends Walker implements ActionListener {
         } 
     }
 
-    public void animationManager(Vec2 velocity, Vec2 position) {
+    public void animationManager(Vec2 velocity) {
 
         if (velocity.y == 0.00) {
             inAir = false;
@@ -149,7 +150,7 @@ public class Player extends Walker implements ActionListener {
             direction = "right";
         }
 
-        playerMotion(velocity, position);
+        playerMotion(velocity);
 
         if (!Objects.equals(nextPlayerState, "") && !(nextPlayerState.equals(currentPlayerState))) {
 
@@ -227,9 +228,6 @@ public class Player extends Walker implements ActionListener {
 
     public void setAttackingState(boolean state) {
         isAttacking = state;
-    }
-
-    public void setIsHeavyAttack(boolean state) {
     }
 
 }

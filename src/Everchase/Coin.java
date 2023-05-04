@@ -12,6 +12,7 @@ public class Coin extends DynamicBody {
     private static final Shape coinShape = new CircleShape(0.35f);
     private static final BodyImage coinImage = new BodyImage("res/sprites/environment/coin.gif", 1.00f);
     private static int coinsHeld;
+    private static int maxCoins;
     
     public Coin(World w) {
         super(w, coinShape);
@@ -28,5 +29,8 @@ public class Coin extends DynamicBody {
     public static int getCoinsHeld() {
         return coinsHeld;
     }
+
+    public static void setMaxCoins(int maxNum) { maxCoins = maxNum;}
+    public static int getMaxCoins() { return maxCoins;}
     
 }

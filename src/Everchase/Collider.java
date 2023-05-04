@@ -12,7 +12,13 @@ public class Collider implements CollisionListener {
         if (c.getOtherBody() instanceof Coin) {
             ((Coin) c.getOtherBody()).incrementCoinsHeld();
             c.getOtherBody().destroy();
-            
+
+        } else if (c.getOtherBody() instanceof Teleporter) {
+            c.getOtherBody().destroy();
+            c.getReportingBody().destroy();
+            Main.getManager().loadNextLevel(Main.getView());
+
+
         } else if (c.getOtherBody() instanceof Enemy) {
 
             // prevents enemy from sliding away
@@ -24,7 +30,7 @@ public class Collider implements CollisionListener {
                 // decrement enemy's health and if health <= 0, then destroy enemy object
                 ((Enemy) c.getOtherBody()).decrementHealth((Player) c.getReportingBody());
                 if (((Enemy) c.getOtherBody()).getHealth() <= 0) {
-                    ((Enemy) c.getOtherBody()).destroy();
+                    c.getOtherBody().destroy();
                 }   
 
             // enemy attacking the player collision
@@ -33,7 +39,7 @@ public class Collider implements CollisionListener {
                 // decrement player's health and if health <= 0, then destroy player object
                 ((Player) c.getReportingBody()).decrementHealth();
                 if (((Player) c.getReportingBody()).getHealth() <= 0) {
-                    ((Player) c.getReportingBody()).destroy();
+                    c.getReportingBody().destroy();
                 }
             } 
         }

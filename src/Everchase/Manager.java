@@ -6,14 +6,17 @@ import city.cs.engine.World;
 
 public class Manager extends World {
 
+    private static int currentLevel;
+
     public void loadLevel(Window view, int level) {
+
+        currentLevel = level;
 
         switch (level) {
             case 1 -> {
                 One worldOne = new One(view);
                 view.setWorld(worldOne);
                 worldOne.start();
-
             }
 
             case 2 -> {
@@ -25,13 +28,17 @@ public class Manager extends World {
         }
     }
 
+    private int incrementLevel() {
+        currentLevel++;
+        return currentLevel;
+    }
 
     private void unloadLevel(World currentWorld) {
         currentWorld.stop();
     }
 
-    private void loadNextLevel(Window view, int nextLevel) {
+    public void loadNextLevel(Window view) {
         unloadLevel(view.getWorld());
-        loadLevel(view, nextLevel);
+        loadLevel(view, incrementLevel());
     }
 }

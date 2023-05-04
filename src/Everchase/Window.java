@@ -12,11 +12,11 @@ import javax.swing.ImageIcon;
 public class Window extends UserView {
 
     private final Image background;
-    private final Player yumiko;
+    private final Player player;
 
     public Window(World w, int width, int height, Player player) {
         super(w, width, height);
-        this.yumiko = player;
+        this.player = player;
         background = new ImageIcon("res/sprites/environment/background.png").getImage();
     }
 
@@ -30,7 +30,7 @@ public class Window extends UserView {
     @Override
     protected void paintForeground(Graphics2D g) {
         // draws health bar status
-        int healthValue = yumiko.getHealth();
+        int healthValue = player.getHealth();
         g.drawImage(new ImageIcon("res/sprites/icons/health-0" + healthValue + ".png").getImage(),
                     15, 20, this);
 

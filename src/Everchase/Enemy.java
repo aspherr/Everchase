@@ -58,34 +58,30 @@ public class Enemy extends Walker {
 
     }
 
-    public int getHealth() {
-        return health;
-    }
-
-    public void decrementHealth(Player yumiko) {
-
-        // decrements enemy's health depending on the type of attack used
-
-        if (Objects.equals(yumiko.getCurrentPlayerState(), "light-attack-right") ||
-                Objects.equals(yumiko.getCurrentPlayerState(), "light-attack-left")) {
-            health -= 1;
-
-        } else if (Objects.equals(yumiko.getCurrentPlayerState(), "heavy-attack-right") ||
-                Objects.equals(yumiko.getCurrentPlayerState(), "heavy-attack-left")) {
-            health -= 2;
-        }
-    }
-
-    public boolean isDead() {
-        return health == 0;
-    }
-
     public void setStartingPosition(Vec2 position) {
         startingPosition = position;
     } 
 
     public void setDirection(String currentDirection) {
         direction = currentDirection;
+    }
+
+    public void decrementHealth(Player player) {
+
+        // decrements enemy's health depending on the type of attack used
+
+        if (Objects.equals(player.getCurrentPlayerState(), "light-attack-right") ||
+                Objects.equals(player.getCurrentPlayerState(), "light-attack-left")) {
+            health -= 1;
+
+        } else if (Objects.equals(player.getCurrentPlayerState(), "heavy-attack-right") ||
+                Objects.equals(player.getCurrentPlayerState(), "heavy-attack-left")) {
+            health -= 2;
+        }
+    }
+
+    public int getHealth() {
+        return health;
     }
     
 }

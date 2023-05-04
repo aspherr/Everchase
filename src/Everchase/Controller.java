@@ -46,7 +46,6 @@ public class Controller implements KeyListener {
         } else if (keyCode == KeyEvent.VK_F) {
 
             player.setAttackingState(true);
-            player.setIsHeavyAttack(false);
 
             if (Objects.equals(player.getCurrentPlayerState(), "idle-left")) {
                 player.setNextPlayerState("light-attack-left");
@@ -60,7 +59,6 @@ public class Controller implements KeyListener {
         } else if (keyCode == KeyEvent.VK_E) {
 
             player.setAttackingState(true);
-            player.setIsHeavyAttack(true);
 
             if (Objects.equals(player.getCurrentPlayerState(), "idle-left")) {
                 player.setNextPlayerState("heavy-attack-left");

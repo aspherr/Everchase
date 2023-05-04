@@ -8,10 +8,13 @@ import javax.swing.JFrame;
 
 public class Main {
 
+    private static Manager manager;
+    private static Window view;
+
     public static void everchase() {
         Game world = new Game();
-        Manager manager = new Manager();
-        Window view = new Window(world, 900, 500, world.getPlayer());
+        manager = new Manager();
+        view = new Window(world, 900, 500, world.getPlayer());
 
         manager.loadLevel(view, 1);
 
@@ -28,6 +31,14 @@ public class Main {
 
         world.start();
         view.requestFocus();
+    }
+
+    public static Window getView() {
+        return view;
+    }
+
+    public static Manager getManager() {
+        return manager;
     }
 
     public static void main(String[] args) throws Exception {
