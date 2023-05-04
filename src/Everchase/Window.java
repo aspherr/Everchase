@@ -12,11 +12,9 @@ import javax.swing.ImageIcon;
 public class Window extends UserView {
 
     private final Image background;
-    private final Player player;
 
-    public Window(World w, int width, int height, Player player) {
+    public Window(World w, int width, int height) {
         super(w, width, height);
-        this.player = player;
         background = new ImageIcon("res/sprites/environment/background.png").getImage();
     }
 
@@ -30,7 +28,7 @@ public class Window extends UserView {
     @Override
     protected void paintForeground(Graphics2D g) {
         // draws health bar status
-        int healthValue = player.getHealth();
+        int healthValue = Player.getHealth();
         g.drawImage(new ImageIcon("res/sprites/icons/health-0" + healthValue + ".png").getImage(),
                     15, 20, this);
 
@@ -47,6 +45,6 @@ public class Window extends UserView {
         // renders text to display number of coins held
         g.setFont(new Font("PixelSmall", Font.PLAIN, 30));
         g.setColor(new Color(255, 255, 255));
-        g.drawString("COINS: " + Coin.getCoinsHeld(), 18.50f, 80.00f);
+        g.drawString("SCORE: " + Player.getScore(), 18.50f, 80.00f);
     }
 }

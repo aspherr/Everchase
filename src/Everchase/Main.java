@@ -1,5 +1,7 @@
 package Everchase;
 
+import city.cs.engine.World;
+
 import javax.swing.JFrame;
 
 // import of debugger tool; uncomment to use
@@ -12,10 +14,10 @@ public class Main {
     private static Window view;
 
     public static void everchase() {
-        Game world = new Game();
-        manager = new Manager();
-        view = new Window(world, 900, 500, world.getPlayer());
+        World world = new World();
+        view = new Window(world, 900, 500);
 
+        manager = new Manager();
         manager.loadLevel(view, 1);
 
         final JFrame frame = new JFrame("Everchase");

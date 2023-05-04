@@ -58,8 +58,9 @@ public class Player extends Walker implements ActionListener {
 
     private final Timer attackTimer = new Timer(0, this);
 
-    private int health = 3;
-    private int coinsCollected = 0;
+    private static int health = 3;
+
+    private static int score = 0;
 
     public Player(World world) {
         super(world);
@@ -206,15 +207,11 @@ public class Player extends Walker implements ActionListener {
         return currentPlayerState;
     }
 
-    public String getNextPlayerState() {
-        return nextPlayerState;
-    }
-
     public void setNextPlayerState(String state) {
         nextPlayerState = state;
     }
 
-    public int getHealth() {
+    public static int getHealth() {
         return health;
     }
 
@@ -228,6 +225,14 @@ public class Player extends Walker implements ActionListener {
 
     public void setAttackingState(boolean state) {
         isAttacking = state;
+    }
+
+    public void incrementScore(int points) {
+        score += points;
+    }
+
+    public static int getScore() {
+        return score;
     }
 
 }
