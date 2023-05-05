@@ -105,16 +105,28 @@ public class Player extends Walker implements ActionListener {
         if (((velocity.x > 0.00 || velocity.x < -0.10) && velocity.y < 0.1) && !inAir) {
 
             if (Objects.equals(direction, "right")) {
-                nextPlayerState = "run-right";
+                if (velocity.y < -1.00) {
+                    nextPlayerState = "jump-right";
+
+                } else {
+                    nextPlayerState = "run-right";
+                }
             
             } else if (Objects.equals(direction, "left")) {
-                nextPlayerState = "run-left";
+                if (velocity.y < -1.00) {
+                    nextPlayerState = "jump-left";
+
+                } else {
+                    nextPlayerState = "run-left";
+                }
             }
-        
-        // if the player is moving upwards, then use jump-right gif 
+
+
+        // if the player is moving upwards, then use jump-right gif
         } else if (velocity.y > 1.00 || (inAir && velocity.y < 1.00)) {
 
-            if (Objects.equals(direction, "left") || Objects.equals(currentPlayerState, "idle-left")) {
+            if (Objects.equals(direction, "left") ||
+                    Objects.equals(currentPlayerState, "idle-left")) {
                 nextPlayerState = "jump-left";
             
             } else if (Objects.equals(direction, "right")) {
