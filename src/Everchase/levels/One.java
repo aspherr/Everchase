@@ -12,7 +12,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class One extends Manager {
 
     public SoundClip bgm;
-    public final String bgPath = "";
 
     private final Enemy critterOne = new Enemy(this);
     private final Enemy critterTwo = new Enemy(this);
@@ -101,7 +100,6 @@ public class One extends Manager {
         coinThree.setPosition(new Vec2(-0.25f, -2.00f));
 
         Coin.setMaxCoins(3);
-
     }
 
     private void generateEnemies() {

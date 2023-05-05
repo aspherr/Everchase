@@ -4,20 +4,15 @@ import city.cs.engine.World;
 
 import javax.swing.JFrame;
 
-// import of debugger tool; uncomment to use
-// import city.cs.engine.DebugViewer;
-
 
 public class Main {
 
-    private static Manager manager;
-    private static Window view;
+    private static final World world = new World();
+    private static final Manager manager = new Manager();
+    private static final Window view = new Window(world, 900, 500);;
 
     public static void everchase() {
-        World world = new World();
-        view = new Window(world, 900, 500);
 
-        manager = new Manager();
         manager.loadLevel(view, 1);
 
         final JFrame frame = new JFrame("Everchase");
@@ -28,9 +23,6 @@ public class Main {
         frame.setVisible(true);
         frame.pack();
 
-        // optional: line below creates a debugger window; uncomment to use
-        // new DebugViewer(world, 900, 500);
-
         world.start();
         view.requestFocus();
     }
@@ -38,7 +30,6 @@ public class Main {
     public static Window getView() {
         return view;
     }
-
     public static Manager getManager() {
         return manager;
     }

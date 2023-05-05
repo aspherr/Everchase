@@ -215,6 +215,10 @@ public class Player extends Walker implements ActionListener {
         return health;
     }
 
+    public static void incrementHealth() {
+        health += 1;
+    }
+
     public void decrementHealth() {
         health -= 1;
     }
@@ -227,7 +231,7 @@ public class Player extends Walker implements ActionListener {
         isAttacking = state;
     }
 
-    public void incrementScore(int points) {
+    public static void incrementScore(int points) {
         score += points;
     }
 
