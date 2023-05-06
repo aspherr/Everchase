@@ -12,7 +12,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class One extends Manager {
 
     public SoundClip bgm;
-
     private final Enemy critterOne = new Enemy(this);
     private final Enemy critterTwo = new Enemy(this);
     private final Enemy[] critterCollection = new Enemy[2];
@@ -22,7 +21,7 @@ public class One extends Manager {
 
         try {
             bgm = new SoundClip("res/sfx/bgm/level-1-bgm.wav");
-            bgm.setVolume(0.15f);
+            bgm.setVolume(0.05f);
             bgm.loop();
 
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {

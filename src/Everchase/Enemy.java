@@ -18,7 +18,6 @@ public class Enemy extends Walker {
                                             0.82f, -1.18f, 1.44f, -0.52f, 1.14f,
                                             0.62f, 0.52f, 0.85f);
     private int health = 5;
-    private float SPEED = 1.50f;
     private String direction;
     private Vec2 startingPosition;
 
@@ -30,7 +29,6 @@ public class Enemy extends Walker {
     public void enemyMotion() {
 
         // allows for patrolling behavior
-        
         if (this.getPosition().x < (startingPosition.x - 6.00f)) {
             direction = "right";
         
@@ -45,6 +43,7 @@ public class Enemy extends Walker {
 
         enemyMotion();
 
+        float SPEED = 1.50f;
         if (Objects.equals(direction, "right")) {
             this.removeAllImages();
             this.addImage(new BodyImage("res/sprites/enemy/critter-walk-right.gif", 5.00f));
@@ -66,16 +65,16 @@ public class Enemy extends Walker {
         direction = currentDirection;
     }
 
-    public void decrementHealth(Player player) {
+    public void decrementHealth(String playerState) {
 
         // decrements enemy's health depending on the type of attack used
 
-        if (Objects.equals(player.getCurrentPlayerState(), "light-attack-right") ||
-                Objects.equals(player.getCurrentPlayerState(), "light-attack-left")) {
+        if (Objects.equals(playerState, "light-attack-right") ||
+                Objects.equals(playerState, "light-attack-left")) {
             health -= 1;
 
-        } else if (Objects.equals(player.getCurrentPlayerState(), "heavy-attack-right") ||
-                Objects.equals(player.getCurrentPlayerState(), "heavy-attack-left")) {
+        } else if (Objects.equals(playerState, "heavy-attack-right") ||
+                Objects.equals(playerState, "heavy-attack-left")) {
             health -= 2;
         }
     }

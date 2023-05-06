@@ -2,27 +2,14 @@ package Everchase;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.Objects;
 
+import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
-
-import city.cs.engine.BodyImage;
-import city.cs.engine.Fixture;
-import city.cs.engine.PolygonShape;
-import city.cs.engine.Shape;
-import city.cs.engine.SolidFixture;
-import city.cs.engine.Walker;
-import city.cs.engine.World;
 
 import javax.swing.*;
 
 public class Player extends Walker implements ActionListener {
-
-    @Override
-    public List<Fixture> getFixtureList() {
-        return super.getFixtureList();
-    }
 
     private static final Shape playerShape = new PolygonShape(
                                                 -0.13f, 1.90f, -1.12f, 
@@ -30,30 +17,15 @@ public class Player extends Walker implements ActionListener {
                                                 -0.65f, -1.82f, 0.46f, 
                                                 -1.83f, 0.90f, -0.27f, 
                                                 0.81f, 1.44f);
+    SolidFixture player;
 
-    private static final Shape rightAttackShape = new PolygonShape(
-                                                -0.02f, 1.84f, -1.01f, 1.47f, 
-                                                -1.18f ,-0.01f, -0.28f, -1.9f, 
-                                                0.34f, -1.88f, 3.28f, 0.24f, 
-                                                0.86f, 1.55f
-                                                );
-    
-    private static final Shape leftAttackShape = new PolygonShape(
-                                                -0.02f, 1.84f, -1.01f, 1.47f, 
-                                                -3.46f, 0.05f, -0.28f, -1.9f, 
-                                                0.34f, -1.88f, 1.26f, 0.01f, 
-                                                0.86f, 1.55f
-                                                );
-    
-    SolidFixture idle;
-    SolidFixture rightAttack;
-    SolidFixture leftAttack;
+    private Projectile projectile;
 
     private float imgSize = 9.00f;
-    private boolean inAir;
-    private Boolean isAttacking = false;
+    private static boolean inAir;
+    private static Boolean isAttacking = false;
     private String direction = "right";
-    private String currentPlayerState = "";
+    private static String currentPlayerState = "";
     private String nextPlayerState = "idle-right";
 
     private final Timer attackTimer = new Timer(0, this);
@@ -64,44 +36,28 @@ public class Player extends Walker implements ActionListener {
 
     public Player(World world) {
         super(world);
-        idle = new SolidFixture(this, playerShape);
+        player = new SolidFixture(this, playerShape);
     }
 
-    public void configPolygons() {
-        
-        // if idle and attacking, change polygon to attack right shape
-        if (this.getFixtureList().contains(idle) && (Objects.equals(nextPlayerState, "light-attack-right") ||
-                Objects.equals(nextPlayerState, "heavy-attack-right"))) {
-            idle.destroy();
-            rightAttack = new SolidFixture(this, rightAttackShape);
-        
-        // if idle and attacking, change polygon to attack left shape
-        } else if (this.getFixtureList().contains(idle) && (Objects.equals(nextPlayerState, "light-attack-left") ||
-                                                            Objects.equals(nextPlayerState, "heavy-attack-left"))) {
-            idle.destroy();
-            rightAttack = new SolidFixture(this, leftAttackShape);
-        
-        // when finished attacking right, switch to idle right 
-        } else if (this.getFixtureList().contains(rightAttack) && (Objects.equals(nextPlayerState, "idle-right") ||
-                                                                    Objects.equals(nextPlayerState, "run-right"))) {
-            rightAttack.destroy();
-            idle = new SolidFixture(this, playerShape);
-            currentPlayerState = "idle-left";
-        
-        // when finished attacking left, switch to idle left
-        } else if (this.getFixtureList().contains(leftAttack) && (Objects.equals(nextPlayerState, "idle-left") ||
-                                                                    Objects.equals(nextPlayerState, "run-left"))) {
-            leftAttack.destroy();
-            idle = new SolidFixture(this, playerShape);
-            currentPlayerState = "idle-right";
+    public void swordCollision(World world) {
 
+        if (isAttacking && !inAir) {
+            projectile = new Projectile(world);
+            projectile.setPosition(this.getPosition());
+
+            if (Objects.equals(direction, "right")) {
+                projectile.setLinearVelocity(new Vec2(30.00f, 0.00f));
+
+            } else if (Objects.equals(direction, "left")) {
+                projectile.setPosition(new Vec2(this.getPosition().x - 0.50f, this.getPosition().y));
+                projectile.setLinearVelocity(new Vec2(-30.00f, 0.00f));
+            }
         }
-
     }
-    
+
     public void playerMotion(Vec2 velocity) {
          
-        // if the player is moving, then use run gif 
+        // if the player is moving, then use run gif
         if (((velocity.x > 0.00 || velocity.x < -0.10) && velocity.y < 0.1) && !inAir) {
 
             if (Objects.equals(direction, "right")) {
@@ -134,7 +90,7 @@ public class Player extends Walker implements ActionListener {
             }
 
             inAir = true;
-        
+
         // if player isn't moving, then use idle gif
         } else if ((velocity.x > -0.10 && velocity.x < 0.10) && velocity.y >= -0.10 && !inAir) {
   
@@ -163,6 +119,17 @@ public class Player extends Walker implements ActionListener {
             direction = "right";
         }
 
+        if (Objects.equals(nextPlayerState, "light-attack-right") ||
+                Objects.equals(nextPlayerState, "heavy-attack-right")) {
+
+            direction = "right";
+
+        } else if (Objects.equals(nextPlayerState, "light-attack-left") ||
+                Objects.equals(nextPlayerState, "heavy-attack-left")) {
+
+            direction = "left";
+        }
+
         playerMotion(velocity);
 
         if (!Objects.equals(nextPlayerState, "") && !(nextPlayerState.equals(currentPlayerState))) {
@@ -172,6 +139,9 @@ public class Player extends Walker implements ActionListener {
                     Objects.equals(nextPlayerState, "light-attack-left")) {
                 imgSize = 14.00f;
 
+                setAttackingState(true);
+                swordCollision(Manager.getWorld());
+
                 attackTimer.setInitialDelay(500);
                 attackTimer.setRepeats(false);
                 attackTimer.start();
@@ -179,6 +149,9 @@ public class Player extends Walker implements ActionListener {
             } else if (Objects.equals(nextPlayerState, "heavy-attack-right") ||
                     Objects.equals(nextPlayerState, "heavy-attack-left")) {
                 imgSize = 14.00f;
+
+                setAttackingState(true);
+                swordCollision(Manager.getWorld());
 
                 attackTimer.setInitialDelay(700);
                 attackTimer.setRepeats(false);
@@ -195,18 +168,19 @@ public class Player extends Walker implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent ae) {
 
-        this.removeAllImages();
         if (Objects.equals(nextPlayerState, "light-attack-right") ||
                 Objects.equals(nextPlayerState, "heavy-attack-right")) {
 
+            this.removeAllImages();
             imgSize = 9.00f;
             this.addImage(new BodyImage("res/sprites/player/idle-right.gif", imgSize));
 
         } else if (Objects.equals(nextPlayerState, "light-attack-left") ||
                 Objects.equals(nextPlayerState, "heavy-attack-left")) {
 
+            this.removeAllImages();
             imgSize = 9.00f;
             this.addImage(new BodyImage("res/sprites/player/idle-left.gif", imgSize));
         }
@@ -215,7 +189,7 @@ public class Player extends Walker implements ActionListener {
         attackTimer.stop();
     }
 
-    public String getCurrentPlayerState() {
+    public static String getCurrentPlayerState() {
         return currentPlayerState;
     }
 
@@ -235,7 +209,7 @@ public class Player extends Walker implements ActionListener {
         health -= 1;
     }
 
-    public boolean getAttackingState() {
+    public static boolean getAttackingState() {
         return isAttacking;
     }
 
@@ -251,4 +225,15 @@ public class Player extends Walker implements ActionListener {
         return score;
     }
 
+    public Projectile getProjectile() {
+        return projectile;
+    }
+
+    public static boolean isInAir() {
+        return inAir;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
 }

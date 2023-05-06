@@ -6,6 +6,8 @@ import city.cs.engine.StepListener;
 import city.cs.engine.World;
 import org.jbox2d.common.Vec2;
 
+import java.util.Objects;
+
 public class Tracker implements StepListener {
 
     private final Player player;
@@ -21,7 +23,20 @@ public class Tracker implements StepListener {
 
     @Override
     public void postStep(StepEvent post) {
-        player.configPolygons();
+
+        if (Player.getAttackingState() && !Player.isInAir()) {
+            if (Objects.equals(player.getDirection(), "right") &&
+                    player.getProjectile().getPosition().x > (player.getPosition().x + 5.00f)) {
+
+                player.getProjectile().destroy();
+
+            } else if (Objects.equals(player.getDirection(), "left") &&
+                    player.getProjectile().getPosition().x < (player.getPosition().x - 5.00f)) {
+
+                player.getProjectile().destroy();
+            }
+        }
+
         player.animationManager(player.getLinearVelocity());
 
         for (Enemy critter : critterCollection) {

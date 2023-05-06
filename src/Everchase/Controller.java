@@ -45,25 +45,21 @@ public class Controller implements KeyListener {
         // light attack
         } else if (keyCode == KeyEvent.VK_F) {
 
-            player.setAttackingState(true);
-
-            if (Objects.equals(player.getCurrentPlayerState(), "idle-left")) {
+            if (Objects.equals(Player.getCurrentPlayerState(), "idle-left")) {
                 player.setNextPlayerState("light-attack-left");
 
             
-            } else if (Objects.equals(player.getCurrentPlayerState(), "idle-right")) {
+            } else if (Objects.equals(Player.getCurrentPlayerState(), "idle-right")) {
                 player.setNextPlayerState("light-attack-right");
             }
 
         // heavy attack
         } else if (keyCode == KeyEvent.VK_E) {
 
-            player.setAttackingState(true);
-
-            if (Objects.equals(player.getCurrentPlayerState(), "idle-left")) {
+            if (Objects.equals(Player.getCurrentPlayerState(), "idle-left")) {
                 player.setNextPlayerState("heavy-attack-left");
             
-            } else if (Objects.equals(player.getCurrentPlayerState(), "idle-right")) {
+            } else if (Objects.equals(Player.getCurrentPlayerState(), "idle-right")) {
                 player.setNextPlayerState("heavy-attack-right");
             }
         } 
@@ -80,6 +76,6 @@ public class Controller implements KeyListener {
         } else if (keyCode == KeyEvent.VK_A) {
             player.stopWalking();
             player.startWalking(0);
-        } 
+        }
     }
 }

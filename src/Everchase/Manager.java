@@ -31,10 +31,13 @@ public class Manager extends World {
             }
 
             case 2 -> {
-                Two worldTwo = new Two(view);
+                worldTwo = new Two(view);
                 view.setWorld(worldTwo);
-                worldTwo.start();
 
+                // optional: line below creates a debugger window; uncomment to use
+                // new DebugViewer(worldOne, 900, 500);
+
+                worldTwo.start();
             }
         }
     }
@@ -50,6 +53,13 @@ public class Manager extends World {
             case 2 -> {return worldTwo;}
         }
 
+        return null;
+    }
+
+    public static Player getPlayer() {
+        switch (currentLevel) {
+            case 1-> {return One.getPlayer();}
+        }
         return null;
     }
 
