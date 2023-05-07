@@ -47,6 +47,14 @@ public class Window extends UserView {
         g.setFont(new Font("PixelSmall", Font.PLAIN, 30));
         g.setColor(new Color(255, 255, 255));
         g.drawString("SCORE: " + Player.getScore(), 18.50f, 80.00f);
+
+        Reader scoreManager = new Reader("src/Everchase/scores.txt");
+        try {
+            g.drawString("HIGH SCORE: " + scoreManager.readScores(), 18.50f, 100.00f);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void setBackgroundPath(String path) {

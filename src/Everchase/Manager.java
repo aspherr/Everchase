@@ -26,7 +26,7 @@ public class Manager extends World {
 
     private boolean resetOccurred = false;
 
-    public void loadLevel(Window view, int level) {
+    public void loadLevel(Window view, int level) throws IOException {
 
         currentLevel = level;
 
@@ -62,6 +62,11 @@ public class Manager extends World {
                 // new DebugViewer(worldOne, 900, 500);
 
                 worldThree.start();
+            }
+
+            case 4 -> {
+                Reader scoreManager = new Reader("src/Everchase/scores.txt");
+                scoreManager.writeScore(Player.getScore());
             }
         }
 
@@ -111,13 +116,13 @@ public class Manager extends World {
         currentWorld.stop();
     }
 
-    public void resetLevel(World currentWorld, Window view) {
+    public void resetLevel(World currentWorld, Window view) throws IOException {
         resetOccurred = true;
         unloadLevel(currentWorld);
         loadLevel(view, currentLevel);
     }
 
-    public void loadNextLevel(Window view) {
+    public void loadNextLevel(Window view) throws IOException {
         unloadLevel(view.getWorld());
         loadLevel(view, incrementLevel());
     }

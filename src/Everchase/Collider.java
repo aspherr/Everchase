@@ -42,7 +42,14 @@ public class Collider implements CollisionListener {
 
             c.getOtherBody().destroy();
             c.getReportingBody().destroy();
-            Main.getManager().loadNextLevel(Main.getView());
+
+            try {
+                Main.getManager().loadNextLevel(Main.getView());
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
             ((Player) c.getReportingBody()).setLevelComplete(false);
 
         } else if (c.getOtherBody() instanceof Enemy) {
@@ -66,7 +73,14 @@ public class Collider implements CollisionListener {
             // if health <= 0, then destroy the player object
             if (Player.getHealth() <= 0) {
                 c.getReportingBody().destroy();
-                Main.getManager().resetLevel(Manager.getWorld(), Main.getView());
+
+                try {
+                    Main.getManager().resetLevel(Manager.getWorld(), Main.getView());
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
                 Coin.resetCoinsHeld();
                 Player.resetHealth();
                 Player.resetScore();

@@ -3,6 +3,7 @@ package Everchase;
 import city.cs.engine.World;
 
 import javax.swing.JFrame;
+import java.io.IOException;
 
 
 public class Main {
@@ -11,7 +12,7 @@ public class Main {
     private static final Manager manager = new Manager();
     private static final Window view = new Window(world, 900, 500);;
 
-    public static void everchase() {
+    public static void everchase() throws IOException {
 
         manager.loadLevel(view, manager.incrementLevel());
 
