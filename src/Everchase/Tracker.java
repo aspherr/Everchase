@@ -52,7 +52,7 @@ public class Tracker implements StepListener {
 
         if (Manager.getLevel() == 3 && Coin.getCoinsHeld() == 3) {
 
-            this.jumpTeleporter.setPosition(new Vec2(0.00f, 10.00f));
+            this.jumpTeleporter.setPosition(new Vec2(0.00f, 10.50f));
             jumpTeleporter.animateTeleporter();
 
             Jumper.setIsCreated(!Jumper.getIsDestroyed());

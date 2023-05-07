@@ -20,9 +20,11 @@ public class Manager extends World {
     private static Two worldTwo;
     private static Three worldThree;
 
-    private static int currentLevel;
+    private static int currentLevel = 0;
     public SoundClip bgm;
     private String bgmFilePath;
+
+    private boolean resetOccurred = false;
 
     public void loadLevel(Window view, int level) {
 
@@ -65,7 +67,7 @@ public class Manager extends World {
 
         try {
 
-            if (currentLevel > 1) {
+            if (currentLevel > 1 || resetOccurred) {
                 bgm.stop();
             }
 
@@ -78,7 +80,7 @@ public class Manager extends World {
         }
     }
 
-    private int incrementLevel() {
+    public int incrementLevel() {
         currentLevel++;
         return currentLevel;
     }
@@ -107,6 +109,12 @@ public class Manager extends World {
 
     private void unloadLevel(World currentWorld) {
         currentWorld.stop();
+    }
+
+    public void resetLevel(World currentWorld, Window view) {
+        resetOccurred = true;
+        unloadLevel(currentWorld);
+        loadLevel(view, currentLevel);
     }
 
     public void loadNextLevel(Window view) {

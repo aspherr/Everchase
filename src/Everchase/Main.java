@@ -13,7 +13,7 @@ public class Main {
 
     public static void everchase() {
 
-        manager.loadLevel(view, 1);
+        manager.loadLevel(view, manager.incrementLevel());
 
         final JFrame frame = new JFrame("Everchase");
         frame.add(view);

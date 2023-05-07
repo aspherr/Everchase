@@ -34,8 +34,11 @@ public class Collider implements CollisionListener {
             // if health <= 0, then destroy the player object
             if (Player.getHealth() <= 0) {
                 c.getReportingBody().destroy();
+                Main.getManager().resetLevel(Manager.getWorld(), Main.getView());
+                Coin.resetCoinsHeld();
+                Player.resetHealth();
+                Player.resetScore();
             }
-
         }
     }
 }

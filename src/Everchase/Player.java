@@ -213,6 +213,10 @@ public class Player extends Walker implements ActionListener {
         health -= 1;
     }
 
+    public static void resetHealth() {
+        health = 3;
+    }
+
     public static boolean getAttackingState() {
         return isAttacking;
     }
@@ -229,6 +233,10 @@ public class Player extends Walker implements ActionListener {
         return score;
     }
 
+    public static void resetScore() {
+        score = 0;
+    }
+
     public Projectile getProjectile() {
         return projectile;
     }
@@ -242,6 +250,4 @@ public class Player extends Walker implements ActionListener {
     }
 
     public void setLevelComplete(boolean state) {levelComplete = state;}
-
-    public boolean getLevelComplete() {return levelComplete;};
 }

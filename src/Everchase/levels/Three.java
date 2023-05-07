@@ -70,7 +70,7 @@ public class Three extends Manager {
 
         Shape platformTwoShape = new BoxShape(1.00f, 0.90f);
         StaticBody platformTwo = new StaticBody(this, platformTwoShape);
-        platformTwo.setPosition(new Vec2(0.00f, -4.50f));
+        platformTwo.setPosition(new Vec2(-2.00f, -4.50f));
         platformTwo.addImage(new BodyImage("res/sprites/environment/level 3/small-platform.png", 2.5f));
 
         Shape platformThreeShape = new BoxShape(1.00f, 0.90f);
@@ -80,17 +80,17 @@ public class Three extends Manager {
 
         Shape platformFourShape = new BoxShape(1.00f, 0.90f);
         StaticBody platformFour = new StaticBody(this, platformFourShape);
-        platformFour.setPosition(new Vec2(-14.00f, -4.50f));
+        platformFour.setPosition(new Vec2(-12.00f, -4.50f));
         platformFour.addImage(new BodyImage("res/sprites/environment/level 3/small-platform.png", 2.5f));
 
         Shape platformFiveShape = new BoxShape(6.00f, 1.00f);
         StaticBody platformFive = new StaticBody(this, platformFiveShape);
-        platformFive.setPosition(new Vec2(-6.00f, 6.00f));
+        platformFive.setPosition(new Vec2(-6.00f, 7.00f));
         platformFive.addImage(new BodyImage("res/sprites/environment/level 3/long-platform.png", 2.5f));
 
         Shape platformSixShape = new BoxShape(1.00f, 0.90f);
         StaticBody platformSix = new StaticBody(this, platformSixShape);
-        platformSix.setPosition(new Vec2(-21.50f, 3.00f));
+        platformSix.setPosition(new Vec2(-21.50f, 2.00f));
         platformSix.addImage(new BodyImage("res/sprites/environment/level 3/small-platform.png", 2.5f));
 
         Shape platformSevenShape = new BoxShape(3.00f, 1.00f);
@@ -110,8 +110,8 @@ public class Three extends Manager {
         Coin coinFour = new Coin(this);
 
         coinOne.setPosition(new Vec2(17.00f, -9.50f));
-        coinTwo.setPosition(new Vec2(-14.00f, -2.00f));
-        coinThree.setPosition(new Vec2(-11.00f, 9.00f));
+        coinTwo.setPosition(new Vec2(-12.00f, -2.00f));
+        coinThree.setPosition(new Vec2(-11.00f, 10.00f));
         coinFour.setPosition(new Vec2(17.00f, 9.00f));
 
         Coin.setMaxCoins(4);
