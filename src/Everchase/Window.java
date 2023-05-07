@@ -28,10 +28,6 @@ public class Window extends UserView {
     //draws the foreground
     @Override
     protected void paintForeground(Graphics2D g) {
-        // draws health bar status
-        int healthValue = Player.getHealth();
-        g.drawImage(new ImageIcon("res/sprites/icons/health-0" + healthValue + ".png").getImage(),
-                    15, 20, this);
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         
@@ -43,18 +39,34 @@ public class Window extends UserView {
             e.printStackTrace();
         }
 
-        // renders text to display number of coins held
-        g.setFont(new Font("PixelSmall", Font.PLAIN, 30));
-        g.setColor(new Color(255, 255, 255));
-        g.drawString("SCORE: " + Player.getScore(), 18.50f, 80.00f);
+         if (!Manager.getGameComplete()) {
 
-        Reader scoreManager = new Reader("src/Everchase/scores.txt");
-        try {
-            g.drawString("HIGH SCORE: " + scoreManager.readScores(), 18.50f, 100.00f);
+             // draws health bar status
+             int healthValue = Player.getHealth();
+             g.drawImage(new ImageIcon("res/sprites/icons/health-0" + healthValue + ".png").getImage(),
+                     15, 20, this);
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+             // renders text to display number of coins held
+             g.setFont(new Font("PixelSmall", Font.PLAIN, 30));
+             g.setColor(new Color(255, 255, 255));
+             g.drawString("SCORE: " + Player.getScore(), 18.50f, 80.00f);
+
+             Reader scoreManager = new Reader("src/Everchase/scores.txt");
+             try {
+                 g.drawString("HIGH SCORE: " + scoreManager.readScores(), 18.50f, 100.00f);
+
+             } catch (IOException e) {
+                 throw new RuntimeException(e);
+             }
+
+         } else {
+             g.setFont(new Font("PixelSmall", Font.PLAIN, 125));
+             g.setColor(new Color(255, 255, 255));
+
+             g.drawString("THANK YOU FOR PLAYING!", 50.00f, 200.00f);
+             g.drawString("GITHUB: ASPHERR_", 150.00f, 350.00f);
+
+         }
     }
 
     public void setBackgroundPath(String path) {

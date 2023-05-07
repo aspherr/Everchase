@@ -3,6 +3,7 @@ package Everchase;
 // import of debugger tool; uncomment to use
 // import city.cs.engine.DebugViewer;
 
+import Everchase.levels.Credits;
 import Everchase.levels.One;
 import Everchase.levels.Three;
 import Everchase.levels.Two;
@@ -25,6 +26,8 @@ public class Manager extends World {
     private String bgmFilePath;
 
     private boolean resetOccurred = false;
+
+    private static boolean gameComplete = false;
 
     public void loadLevel(Window view, int level) throws IOException {
 
@@ -67,12 +70,18 @@ public class Manager extends World {
             case 4 -> {
                 Reader scoreManager = new Reader("src/Everchase/scores.txt");
                 scoreManager.writeScore(Player.getScore());
+                gameComplete = true;
+
+                Credits creditsPage = new Credits(view);
+                view.setWorld(creditsPage);
+                creditsPage.start();
+
             }
         }
 
         try {
 
-            if (currentLevel > 1 || resetOccurred) {
+            if ((currentLevel > 1 && currentLevel < 4) || resetOccurred) {
                 bgm.stop();
             }
 
@@ -125,5 +134,9 @@ public class Manager extends World {
     public void loadNextLevel(Window view) throws IOException {
         unloadLevel(view.getWorld());
         loadLevel(view, incrementLevel());
+    }
+
+    public static boolean getGameComplete() {
+        return gameComplete;
     }
 }
