@@ -45,7 +45,6 @@ public class Two extends Manager {
         generatePickups();
 
         Player player = new Player(this);
-        player.setLevelComplete(false);
         player.setPosition(new Vec2(-20f, -10.00f));
 
         // detects for collisions with the player's body

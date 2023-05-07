@@ -34,13 +34,16 @@ public class Player extends Walker implements ActionListener {
 
     private static int score = 0;
 
-    private boolean levelComplete;
-
     public Player(World world) {
         super(world);
         player = new SolidFixture(this, playerShape);
-        currentPlayerState = "";
-        nextPlayerState = "idle-right";
+
+        if (Manager.getLevel() == 1) {
+            nextPlayerState = "idle-right";
+
+        } else {
+            currentPlayerState = "idle-right";
+        }
     }
 
     public void swordCollision(World world) {
@@ -248,6 +251,4 @@ public class Player extends Walker implements ActionListener {
     public String getDirection() {
         return direction;
     }
-
-    public void setLevelComplete(boolean state) {levelComplete = state;}
 }

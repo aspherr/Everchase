@@ -81,7 +81,7 @@ public class Manager extends World {
 
         try {
 
-            if ((currentLevel > 1 && currentLevel < 4) || resetOccurred) {
+            if (currentLevel > 1 || resetOccurred) {
                 bgm.stop();
             }
 

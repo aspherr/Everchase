@@ -50,7 +50,6 @@ public class Collider implements CollisionListener {
                 throw new RuntimeException(e);
             }
 
-            ((Player) c.getReportingBody()).setLevelComplete(false);
 
         } else if (c.getOtherBody() instanceof Enemy) {
 
