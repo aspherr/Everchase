@@ -1,7 +1,12 @@
 package Everchase;
 
+import city.cs.engine.SoundClip;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.util.Objects;
 
 public class Controller implements KeyListener {
@@ -49,6 +54,15 @@ public class Controller implements KeyListener {
         // light attack
         } else if (keyCode == KeyEvent.VK_F) {
 
+            try {
+                SoundClip sfx = new SoundClip("res/sfx/sword-slash.wav");
+                sfx.setVolume(0.25f);
+                sfx.play();
+
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException err) {
+                System.out.println(err);
+            }
+
             if (Objects.equals(Player.getCurrentPlayerState(), "idle-left")) {
                 player.setNextPlayerState("light-attack-left");
 
@@ -59,6 +73,15 @@ public class Controller implements KeyListener {
 
         // heavy attack
         } else if (keyCode == KeyEvent.VK_E) {
+
+            try {
+                SoundClip sfx = new SoundClip("res/sfx/sword-slash.wav");
+                sfx.setVolume(0.25f);
+                sfx.play();
+
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException err) {
+                System.out.println(err);
+            }
 
             if (Objects.equals(Player.getCurrentPlayerState(), "idle-left")) {
                 player.setNextPlayerState("heavy-attack-left");

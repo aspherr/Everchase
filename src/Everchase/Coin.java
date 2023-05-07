@@ -2,6 +2,10 @@ package Everchase;
 
 import city.cs.engine.*;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+
 public class Coin extends DynamicBody implements SensorListener {
 
     private static final Shape coinShape = new CircleShape(0.35f);
@@ -40,6 +44,16 @@ public class Coin extends DynamicBody implements SensorListener {
     public void beginContact(SensorEvent sensorEvent) {
 
         if (sensorEvent.getContactBody() instanceof Player) {
+
+            try {
+                SoundClip sfx = new SoundClip("res/sfx/coin-collect.wav");
+                sfx.setVolume(0.50f);
+                sfx.play();
+
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                System.out.println(e);
+            }
+
             incrementCoinsHeld();
             Player.incrementScore(20);
             this.destroy();

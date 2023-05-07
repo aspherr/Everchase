@@ -2,6 +2,10 @@ package Everchase;
 
 import city.cs.engine.*;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+
 public class Heart extends DynamicBody implements SensorListener {
 
     private static final Shape heartShape = new CircleShape(0.35f);
@@ -24,6 +28,15 @@ public class Heart extends DynamicBody implements SensorListener {
     public void beginContact(SensorEvent sensorEvent) {
 
         if (sensorEvent.getContactBody() instanceof Player) {
+
+            try {
+                SoundClip sfx = new SoundClip("res/sfx/heart-collect.wav");
+                sfx.setVolume(1.00f);
+                sfx.play();
+
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                System.out.println(e);
+            }
 
             if (Player.getHealth() == 3) {
                 Player.incrementScore(10);
