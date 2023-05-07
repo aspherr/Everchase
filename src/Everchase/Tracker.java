@@ -1,5 +1,8 @@
 package Everchase;
 
+import Everchase.levels.One;
+import Everchase.levels.Three;
+import Everchase.levels.Two;
 import city.cs.engine.BoxShape;
 import city.cs.engine.StepEvent;
 import city.cs.engine.StepListener;
@@ -15,11 +18,15 @@ public class Tracker implements StepListener {
 
     private final Teleporter teleporter;
 
+    private final Jumper jumpTeleporter;
+
     public Tracker(World world, Player player, Enemy[] critter) {
         this.player = player;
         this.critterCollection = critter;
         this.teleporter = new Teleporter(world, new BoxShape(0.25f, 1.75f));
+        this.jumpTeleporter = new Jumper(world, new BoxShape(0.25f, 1.75f));
     }
+
 
     @Override
     public void postStep(StepEvent post) {
@@ -43,10 +50,27 @@ public class Tracker implements StepListener {
             critter.animationManager();
         }
 
-        if (Coin.getCoinsHeld() == Coin.getMaxCoins()) {
-            teleporter.setPosition(new Vec2(20.00f, -7.00f));
+        if (Manager.getLevel() == 3 && Coin.getCoinsHeld() == 3) {
+
+            this.jumpTeleporter.setPosition(new Vec2(0.00f, 10.00f));
+            jumpTeleporter.animateTeleporter();
+
+            Jumper.setIsCreated(!Jumper.getIsDestroyed());
+
+        } else if (Coin.getCoinsHeld() == Coin.getMaxCoins()) {
+
+            if (Manager.getWorld() instanceof One) {
+                this.teleporter.setPosition(new Vec2(20.00f, -7.00f));
+
+            } else if (Manager.getWorld() instanceof Two) {
+                this.teleporter.setPosition(new Vec2(20.00f, -8.00f));
+
+            } else if (Manager.getWorld() instanceof Three) {
+                this.teleporter.setPosition(new Vec2(21.00f, 10.00f));
+            }
+
             teleporter.animateTeleporter();
-            teleporter.setIsCreated(true);
+            Teleporter.setIsCreated(true);
         }
     }
 

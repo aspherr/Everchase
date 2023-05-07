@@ -4,16 +4,25 @@ package Everchase;
 // import city.cs.engine.DebugViewer;
 
 import Everchase.levels.One;
+import Everchase.levels.Three;
 import Everchase.levels.Two;
+import city.cs.engine.SoundClip;
 import city.cs.engine.World;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 
 
 public class Manager extends World {
 
     private static One worldOne;
     private static Two worldTwo;
-    private static int currentLevel;
+    private static Three worldThree;
 
+    private static int currentLevel;
+    public SoundClip bgm;
+    private String bgmFilePath;
 
     public void loadLevel(Window view, int level) {
 
@@ -22,6 +31,7 @@ public class Manager extends World {
         switch (level) {
             case 1 -> {
                 worldOne = new One(view);
+                bgmFilePath = "res/sfx/bgm/level-1-bgm.wav";
                 view.setWorld(worldOne);
 
                 // optional: line below creates a debugger window; uncomment to use
@@ -32,6 +42,7 @@ public class Manager extends World {
 
             case 2 -> {
                 worldTwo = new Two(view);
+                bgmFilePath = "res/sfx/bgm/level-2-bgm.wav";
                 view.setWorld(worldTwo);
 
                 // optional: line below creates a debugger window; uncomment to use
@@ -39,6 +50,31 @@ public class Manager extends World {
 
                 worldTwo.start();
             }
+
+            case 3 -> {
+                worldThree = new Three(view);
+                bgmFilePath = "res/sfx/bgm/level-3-bgm.wav";
+                view.setWorld(worldThree);
+
+                // optional: line below creates a debugger window; uncomment to use
+                // new DebugViewer(worldOne, 900, 500);
+
+                worldThree.start();
+            }
+        }
+
+        try {
+
+            if (currentLevel > 1) {
+                bgm.stop();
+            }
+
+            bgm = new SoundClip(bgmFilePath);
+            bgm.setVolume(0.05f);
+            bgm.loop();
+
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            System.out.println(e);
         }
     }
 
@@ -47,19 +83,25 @@ public class Manager extends World {
         return currentLevel;
     }
 
-    public static World getWorld() {
-        switch (currentLevel) {
-            case 1-> {return worldOne;}
-            case 2 -> {return worldTwo;}
-        }
-
-        return null;
+    public static int getLevel() {
+        return currentLevel;
     }
 
-    public static Player getPlayer() {
+    public static World getWorld() {
         switch (currentLevel) {
-            case 1-> {return One.getPlayer();}
+            case 1-> {
+                return worldOne;
+            }
+
+            case 2 -> {
+                return worldTwo;
+            }
+
+            case 3-> {
+                return worldThree;
+            }
         }
+
         return null;
     }
 

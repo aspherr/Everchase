@@ -25,8 +25,8 @@ public class Player extends Walker implements ActionListener {
     private static boolean inAir;
     private static Boolean isAttacking = false;
     private String direction = "right";
-    private static String currentPlayerState = "";
-    private String nextPlayerState = "idle-right";
+    private static String currentPlayerState;
+    private String nextPlayerState;
 
     private final Timer attackTimer = new Timer(0, this);
 
@@ -34,9 +34,13 @@ public class Player extends Walker implements ActionListener {
 
     private static int score = 0;
 
+    private boolean levelComplete;
+
     public Player(World world) {
         super(world);
         player = new SolidFixture(this, playerShape);
+        currentPlayerState = "";
+        nextPlayerState = "idle-right";
     }
 
     public void swordCollision(World world) {
@@ -236,4 +240,8 @@ public class Player extends Walker implements ActionListener {
     public String getDirection() {
         return direction;
     }
+
+    public void setLevelComplete(boolean state) {levelComplete = state;}
+
+    public boolean getLevelComplete() {return levelComplete;};
 }

@@ -11,17 +11,18 @@ import javax.swing.ImageIcon;
 
 public class Window extends UserView {
 
-    private final Image background;
+    private String bgPath = "res/sprites/environment/level 1/background.png";
+    private int yPos;
 
     public Window(World w, int width, int height) {
         super(w, width, height);
-        background = new ImageIcon("res/sprites/environment/background.png").getImage();
     }
 
     // draws the background
     @Override
     protected void paintBackground(Graphics2D g) {
-        g.drawImage(background, 0, -280, this);
+        Image background = new ImageIcon(bgPath).getImage();
+        g.drawImage(background, 0, yPos, this);
     }
 
     //draws the foreground
@@ -47,4 +48,12 @@ public class Window extends UserView {
         g.setColor(new Color(255, 255, 255));
         g.drawString("SCORE: " + Player.getScore(), 18.50f, 80.00f);
     }
+
+    public void setBackgroundPath(String path) {
+        bgPath = path;
+    }
+    public void setPosY(int pos) {
+        yPos = pos;
+    }
+
 }

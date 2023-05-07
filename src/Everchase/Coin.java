@@ -28,6 +28,10 @@ public class Coin extends DynamicBody implements SensorListener {
         return coinsHeld;
     }
 
+    public static void resetCoinsHeld() {
+        coinsHeld = 0;
+    }
+
     public static void setMaxCoins(int maxNum) { maxCoins = maxNum;}
 
     public static int getMaxCoins() { return maxCoins;}

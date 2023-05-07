@@ -7,10 +7,14 @@ import java.util.Objects;
 public class Controller implements KeyListener {
     private static final float SPEED = 6.00f;
     
-    private final Player player;
+    private Player player;
 
     public Controller(Player player) {
         this.player = player;
+    }
+
+    public void updatePlayer(Player playerObj) {
+        player = playerObj;
     }
 
     @Override

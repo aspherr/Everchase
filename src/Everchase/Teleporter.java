@@ -13,11 +13,12 @@ import javax.swing.*;
 public class Teleporter extends StaticBody implements ActionListener {
 
     private final Timer popupTimer = new Timer(880, this);
+
     private static boolean isCreated = false;
 
     public Teleporter(World world, BoxShape body) {
         super(world, body);
-        this.setPosition(new Vec2(25.00f, -7.00f));
+        setPosition(new Vec2(25.00f, -7.00f));
     }
 
     public void animateTeleporter() {
@@ -34,9 +35,11 @@ public class Teleporter extends StaticBody implements ActionListener {
         this.removeAllImages();
         this.addImage(new BodyImage("res/sprites/environment/teleporter-idle.gif", 5));
         popupTimer.stop();
+
     }
 
-    public void setIsCreated(boolean state) {
+    public static void setIsCreated(boolean state) {
         isCreated = state;
     }
+
 }
