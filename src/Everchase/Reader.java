@@ -2,6 +2,10 @@ package Everchase;
 
 import java.io.*;
 
+/**
+ * <p>
+ *  * Reads/Writes into a .txt file to keep track of high-såcores
+ */
 public class Reader {
     private final String file;
 

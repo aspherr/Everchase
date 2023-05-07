@@ -8,12 +8,22 @@ import org.jbox2d.common.Vec2;
 
 import java.awt.*;
 
+/**
+ * <p>
+ *  * Creates the layout of the second level
+ */
+
 public class Two extends Manager {
 
     private final Enemy critterOne = new Enemy(this);
     private final Enemy critterTwo = new Enemy(this);
     private final Enemy[] critterCollection = new Enemy[2];
 
+
+    /**
+     * <p>
+     *  * Creates the layout of the second level
+     */
     public Two(Window view) {
 
         view.setBackgroundPath("res/sprites/environment/level 2/background.png");
@@ -84,18 +94,18 @@ public class Two extends Manager {
 
     private void generatePickups() {
 
-        Coin.resetCoinsHeld();
+        Currency.resetCoinsHeld();
 
         // Three collectible coins
-        Coin coinOne = new Coin(this);
-        Coin coinTwo = new Coin(this);
-        Coin coinThree = new Coin(this);
+        Currency currencyOne = new Currency(this);
+        Currency currencyTwo = new Currency(this);
+        Currency currencyThree = new Currency(this);
 
-        coinOne.setPosition(new Vec2(-15.00f, 6.50f));
-        coinTwo.setPosition(new Vec2(18.00f, 7.25f));
-        coinThree.setPosition(new Vec2(0.00f, -3.50f));
+        currencyOne.setPosition(new Vec2(-15.00f, 6.50f));
+        currencyTwo.setPosition(new Vec2(18.00f, 7.25f));
+        currencyThree.setPosition(new Vec2(0.00f, -3.50f));
 
-        Coin.setMaxCoins(3);
+        Currency.setMaxCoins(3);
     }
 
     private void generateEnemies() {

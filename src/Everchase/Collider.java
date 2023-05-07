@@ -9,6 +9,10 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
+/**
+ * <p>
+ *  * Handles all collisions except sword collisions
+ */
 public class Collider implements CollisionListener {
 
     @Override
@@ -80,7 +84,7 @@ public class Collider implements CollisionListener {
                     throw new RuntimeException(e);
                 }
 
-                Coin.resetCoinsHeld();
+                Currency.resetCoinsHeld();
                 Player.resetHealth();
                 Player.resetScore();
             }

@@ -9,6 +9,11 @@ import java.io.IOException;
 
 import javax.swing.ImageIcon;
 
+/**
+ * <p>
+ *  * Handles the GUI
+ */
+
 public class Window extends UserView {
 
     private String bgPath = "res/sprites/environment/level 1/background.png";

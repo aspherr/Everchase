@@ -6,11 +6,18 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
+/**
+ * <p>
+ *  * Heart pickup which awards the player +1 health or +10 points if their health is full
+ */
 public class Heart extends DynamicBody implements SensorListener {
 
     private static final Shape heartShape = new CircleShape(0.35f);
     private static final BodyImage heartImage = new BodyImage("res/sprites/environment/heart.gif", 1.50f);
 
+    /**
+     *  * Constructor for the heart pickup
+     */
     public Heart(World w) {
         super(w);
 
@@ -20,6 +27,9 @@ public class Heart extends DynamicBody implements SensorListener {
         setGravityScale(0);
     }
 
+    /**
+     *  * Adds gif to animate the pickup
+     */
     public void animateHeart() {
         this.addImage(heartImage);
     }

@@ -9,15 +9,26 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.Objects;
 
+
+/**
+ * <p>
+ *  * Handles all key inputs
+ */
 public class Controller implements KeyListener {
     private static final float SPEED = 6.00f;
     
     private Player player;
 
+    /**
+     *  * Constructor for controller
+     */
     public Controller(Player player) {
         this.player = player;
     }
 
+    /**
+     *  * Updates the player object when switching between levels
+     */
     public void updatePlayer(Player playerObj) {
         player = playerObj;
     }

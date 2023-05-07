@@ -11,6 +11,11 @@ import org.jbox2d.common.Vec2;
 
 import java.util.Objects;
 
+/**
+ * <p>
+ *  * Constantly monitors certain actions every fame
+ */
+
 public class Tracker implements StepListener {
 
     private final Player player;
@@ -50,14 +55,14 @@ public class Tracker implements StepListener {
             critter.animationManager();
         }
 
-        if (Manager.getLevel() == 3 && Coin.getCoinsHeld() == 3) {
+        if (Manager.getLevel() == 3 && Currency.getCoinsHeld() == 3) {
 
             this.jumpTeleporter.setPosition(new Vec2(0.00f, 10.50f));
             jumpTeleporter.animateTeleporter();
 
             Jumper.setIsCreated(!Jumper.getIsDestroyed());
 
-        } else if (Coin.getCoinsHeld() == Coin.getMaxCoins()) {
+        } else if (Currency.getCoinsHeld() == Currency.getMaxCoins()) {
 
             if (Manager.getWorld() instanceof One) {
                 this.teleporter.setPosition(new Vec2(20.00f, -7.00f));

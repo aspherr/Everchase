@@ -10,6 +10,11 @@ import city.cs.engine.World;
 
 import java.util.Objects;
 
+
+/**
+ * <p>
+ *  * Creates the structure for an enemy
+ */
 public class Enemy extends Walker {
 
     private static final Shape enemyShape = new PolygonShape(
@@ -24,11 +29,17 @@ public class Enemy extends Walker {
 
     private Vec2 startingPosition;
 
+    /**
+     *  * Constructor for enemy
+     */
     public Enemy(World world) {
         super(world, enemyShape);
         addImage(new BodyImage("res/sprites/enemy/idle-right.gif", 5.00f));
     }
 
+    /**
+     *  * Enables basic patrolling behavior
+     */
     public void enemyMotion() {
 
         // allows for patrolling behavior
@@ -39,6 +50,10 @@ public class Enemy extends Walker {
             direction = "left";
         }
     }
+
+    /**
+     *  * Switches between different gifs based on the current state of the object
+     */
 
     public void animationManager() {
 
@@ -75,10 +90,16 @@ public class Enemy extends Walker {
         startingPosition = position;
     }
 
+    /**
+     *  * Sets which way the enemy should face
+     */
     public void setDirection(String currentDirection) {
         direction = currentDirection;
     }
 
+    /**
+     *  * Decrements the health of the enemy based on the type of attack the player does
+     */
     public void decrementHealth(String playerState) {
 
         // decrements enemy's health depending on the type of attack used
@@ -93,10 +114,16 @@ public class Enemy extends Walker {
         }
     }
 
+    /**
+     *  @return returns the enemy's current health
+     */
     public int getHealth() {
         return health;
     }
 
+    /**
+     *  * Sets whether the enemy should patrol or not
+     */
     public void setPatrolling(boolean state) {patrolling = state;}
     
 }

@@ -8,11 +8,19 @@ import org.jbox2d.common.Vec2;
 
 import java.awt.*;
 
+/**
+ * <p>
+ *  * Creates the layout of the first level
+ */
+
 public class One extends Manager {
 
     private final Enemy critter = new Enemy(this);
     private final Enemy[] critterCollection = new Enemy[1];
 
+    /**
+     *  * Constructor for the first level
+     */
     public One(Window view) {
         super();
 
@@ -72,9 +80,9 @@ public class One extends Manager {
     private void generatePickups() {
 
         // One collectible coins
-        Coin coin = new Coin(this);
-        coin.setPosition(new Vec2(0.00f, 5.00f));
-        Coin.setMaxCoins(1);
+        Currency currency = new Currency(this);
+        currency.setPosition(new Vec2(0.00f, 5.00f));
+        Currency.setMaxCoins(1);
     }
 
     private void generateEnemies() {

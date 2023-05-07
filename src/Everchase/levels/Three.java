@@ -8,6 +8,11 @@ import org.jbox2d.common.Vec2;
 
 import java.awt.*;
 
+
+/**
+ * <p>
+ *  * Creates the layout of the third level
+ */
 public class Three extends Manager {
 
     private final Enemy critterOne = new Enemy(this);
@@ -100,20 +105,20 @@ public class Three extends Manager {
     }
 
     private void generatePickups() {
-        Coin.resetCoinsHeld();
+        Currency.resetCoinsHeld();
 
         // Three collectible coins
-        Coin coinOne = new Coin(this);
-        Coin coinTwo = new Coin(this);
-        Coin coinThree = new Coin(this);
-        Coin coinFour = new Coin(this);
+        Currency currencyOne = new Currency(this);
+        Currency currencyTwo = new Currency(this);
+        Currency currencyThree = new Currency(this);
+        Currency currencyFour = new Currency(this);
 
-        coinOne.setPosition(new Vec2(17.00f, -9.50f));
-        coinTwo.setPosition(new Vec2(-12.00f, -2.00f));
-        coinThree.setPosition(new Vec2(-11.00f, 10.00f));
-        coinFour.setPosition(new Vec2(17.00f, 9.00f));
+        currencyOne.setPosition(new Vec2(17.00f, -9.50f));
+        currencyTwo.setPosition(new Vec2(-12.00f, -2.00f));
+        currencyThree.setPosition(new Vec2(-11.00f, 10.00f));
+        currencyFour.setPosition(new Vec2(17.00f, 9.00f));
 
-        Coin.setMaxCoins(4);
+        Currency.setMaxCoins(4);
 
     }
 

@@ -14,7 +14,10 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
-
+/**
+ * <p>
+ *  * handles the switching between different levels
+ */
 public class Manager extends World {
 
     private static One worldOne;
@@ -22,6 +25,10 @@ public class Manager extends World {
     private static Three worldThree;
 
     private static int currentLevel = 0;
+
+    /**
+     *  * Used to play background music between the levels
+     */
     public SoundClip bgm;
     private String bgmFilePath;
 
@@ -29,6 +36,9 @@ public class Manager extends World {
 
     private static boolean gameComplete = false;
 
+    /**
+     *  * Used to load a specified level
+     */
     public void loadLevel(Window view, int level) throws IOException {
 
         currentLevel = level;
@@ -94,15 +104,24 @@ public class Manager extends World {
         }
     }
 
+    /**
+     *  * Increments to the next level
+     */
     public int incrementLevel() {
         currentLevel++;
         return currentLevel;
     }
 
+    /**
+     * @return returns the current level
+     */
     public static int getLevel() {
         return currentLevel;
     }
 
+    /**
+     * @return returns the world of the current level
+     */
     public static World getWorld() {
         switch (currentLevel) {
             case 1-> {
@@ -121,21 +140,33 @@ public class Manager extends World {
         return null;
     }
 
+    /**
+     *  * Pauses current world
+     */
     private void unloadLevel(World currentWorld) {
         currentWorld.stop();
     }
 
+    /**
+     *  * Resets the entire level back to its starting state
+     */
     public void resetLevel(World currentWorld, Window view) throws IOException {
         resetOccurred = true;
         unloadLevel(currentWorld);
         loadLevel(view, currentLevel);
     }
 
+    /**
+     *  * Used to load the next level
+     */
     public void loadNextLevel(Window view) throws IOException {
         unloadLevel(view.getWorld());
         loadLevel(view, incrementLevel());
     }
 
+    /**
+     *  * Used to check if all levels have been completed
+     */
     public static boolean getGameComplete() {
         return gameComplete;
     }

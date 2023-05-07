@@ -4,6 +4,10 @@ import city.cs.engine.*;
 
 import java.awt.*;
 
+/**
+ * <p>
+ *  * Creates a short-ranged projectile used to detect sword collision
+ */
 public class Projectile extends DynamicBody {
 
     private static final CircleShape projectileShape = new CircleShape(0.35f);

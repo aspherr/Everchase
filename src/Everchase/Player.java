@@ -9,6 +9,10 @@ import org.jbox2d.common.Vec2;
 
 import javax.swing.*;
 
+/**
+ * <p>
+ *  * Creates a playable character
+ */
 public class Player extends Walker implements ActionListener {
 
     private static final Shape playerShape = new PolygonShape(
@@ -34,6 +38,9 @@ public class Player extends Walker implements ActionListener {
 
     private static int score = 0;
 
+    /**
+     *  * Constructor for the player
+     */
     public Player(World world) {
         super(world);
         player = new SolidFixture(this, playerShape);
@@ -112,6 +119,9 @@ public class Player extends Walker implements ActionListener {
         } 
     }
 
+    /**
+     *  * Switches between gifs based on the characters current action
+     */
     public void animationManager(Vec2 velocity) {
 
         if (velocity.y == 0.00) {
@@ -196,22 +206,37 @@ public class Player extends Walker implements ActionListener {
         attackTimer.stop();
     }
 
+    /**
+     *  @return returns the current state of the player
+     */
     public static String getCurrentPlayerState() {
         return currentPlayerState;
     }
 
+    /**
+     *  * Sets the next state for the player
+     */
     public void setNextPlayerState(String state) {
         nextPlayerState = state;
     }
 
+    /**
+     *  @return returns the player's current health
+     */
     public static int getHealth() {
         return health;
     }
 
+    /**
+     *  * Increments the player's health
+     */
     public static void incrementHealth() {
         health += 1;
     }
 
+    /**
+     *  * Decrements the player's health
+     */
     public void decrementHealth() {
         health -= 1;
     }
@@ -220,6 +245,9 @@ public class Player extends Walker implements ActionListener {
         health = 3;
     }
 
+    /**
+     * @return returns true if the player is attacking
+     */
     public static boolean getAttackingState() {
         return isAttacking;
     }
@@ -232,6 +260,9 @@ public class Player extends Walker implements ActionListener {
         score += points;
     }
 
+    /**
+     *  @return returns the player's current score
+     */
     public static int getScore() {
         return score;
     }
@@ -240,6 +271,9 @@ public class Player extends Walker implements ActionListener {
         score = 0;
     }
 
+    /**
+     *  @return returns the sword projectile used for collision detection whilst attacking
+     */
     public Projectile getProjectile() {
         return projectile;
     }
@@ -248,6 +282,9 @@ public class Player extends Walker implements ActionListener {
         return inAir;
     }
 
+    /**
+     *  @return returns the direction the player is facing
+     */
     public String getDirection() {
         return direction;
     }

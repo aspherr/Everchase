@@ -3,6 +3,10 @@ package Everchase;
 import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
 
+/**
+ * <p>
+ *  * Handles the projectile collision for the sword
+ */
 public class Sword implements CollisionListener {
 
     @Override

@@ -10,6 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+/**
+ * <p>
+ *  * Used to progress between levels as well jump distances between 2 points in a level
+ */
 public class Teleporter extends StaticBody implements ActionListener {
 
     private final Timer popupTimer = new Timer(880, this);
